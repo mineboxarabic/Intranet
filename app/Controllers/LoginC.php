@@ -11,7 +11,7 @@ class LoginC extends BaseController{
         $this->googleClient = new \Google_Client();
         $this->googleClient->setClientId('572485203888-9igd5548c27cklvf4333r44afe03guha.apps.googleusercontent.com');
         $this->googleClient->setClientSecret('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');
-        $this->googleClient->setRedirectUri('http://localhost:8080/login');
+        $this->googleClient->setRedirectUri('http://localhost:8080/login_redir');
         $this->googleClient->addScope('email');
         $this->googleClient->addScope('profile');
 
@@ -64,14 +64,19 @@ class LoginC extends BaseController{
             session()->set('User_google_data', $User_google_data);
 
 
-
+     
             
             $userModel = new UserModel();
             $user = $userModel->where('email', $userEmail)->first();
             session()->set('current_user', $user);
+          
             if($user){
 
-                return redirect()->to('/login_redir');
+                $userType = $user['rang'] == 0 ? "student" : "personnel";
+                session()->set('userType', $userType);
+                session()->set('loggedUser', $user);
+                echo $userType . " " . $user['email'];
+                return redirect()->to(base_url() . 'dashboard');
             }
             else{
                 echo "user doesn't exist ";
@@ -79,11 +84,16 @@ class LoginC extends BaseController{
         }
         else{
             session()->setFlashdata('error', $token['error']);
-            return redirect()->to('/login_redir');
+            return redirect()->to('/login');
         }
         //TODO: add a login error page
 
 
+    }
+
+    public function logout(){
+        session()->destroy();
+        return redirect()->to(base_url() . 'login');
     }
 
 }

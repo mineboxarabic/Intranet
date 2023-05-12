@@ -1,14 +1,14 @@
 
 <!-- App favicon -->
-<link rel="shortcut icon" href="assets/images/favicon.ico">
+<link rel="shortcut icon" href="<?=base_url().'/'?>assets/images/favicon.ico">
 
 <!-- Bootstrap Css -->
-<link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<link href="<?=base_url().'/'?>assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
 <!-- Icons Css -->
-<link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+<link href="<?=base_url().'/'?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <!-- App Css-->
-<link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-
+<link href="<?=base_url().'/'?>assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+<body data-topbar="light" data-layout="horizontal" ></body>
 
 <div id="layout-wrapper">
 
@@ -18,21 +18,21 @@
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box">
-                    <a href="index.html" class="logo logo-dark">
+                    <a href="<?= base_url() . 'dashboard'?>" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="assets/images/logo.svg" alt="" height="22">
+                            <img src="<?=base_url().'/'?>assets/images/logo.svg" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="assets/images/logo-dark.png" alt="" height="60">
+                            <img src="<?=base_url().'/'?>assets/images/logo-dark.png" alt="" height="60">
                         </span>
                     </a>
 
                     <a href="index.html" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="assets/images/logo-light.svg" alt="" height="22">
+                            <img src="<?=base_url().'/'?>assets/images/logo-light.svg" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="assets/images/logo-light.png" alt="" height="19">
+                            <img src="<?=base_url().'/'?>assets/images/logo-light.png" alt="" height="19">
                         </span>
                     </a>
                 </div>
@@ -96,21 +96,7 @@
                     </div>
                 </div>
 
-                <!--
-                        <div class="dropdown d-inline-block">
-                            <button type="button" class="btn header-item waves-effect"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img id="header-lang-img" src="assets/images/flags/us.jpg" alt="Header Language" height="16">
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="eng">
-                                    <img src="assets/images/flags/us.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
-                                </a>
-                           
-                            </div>
-                        </div>
-					-->
-
+     
                 <div class="dropdown d-none d-lg-inline-block ms-1">
                     <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -121,19 +107,19 @@
                             <div class="row g-0">
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="layouts-hori-topbar-light.html#">
-                                        <img src="assets/images/brands/github.png" alt="Github">
+                                        <img src="<?=base_url().'/'?>assets/images/brands/github.png" alt="Github">
                                         <span>GitHub</span>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="layouts-hori-topbar-light.html#">
-                                        <img src="assets/images/brands/bitbucket.png" alt="bitbucket">
+                                        <img src="<?=base_url().'/'?>assets/images/brands/bitbucket.png" alt="bitbucket">
                                         <span>Bitbucket</span>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="layouts-hori-topbar-light.html#">
-                                        <img src="assets/images/brands/dribbble.png" alt="dribbble">
+                                        <img src="<?=base_url().'/'?>assets/images/brands/dribbble.png" alt="dribbble">
                                         <span>Dribbble</span>
                                     </a>
                                 </div>
@@ -142,19 +128,19 @@
                             <div class="row no-gutters">
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="layouts-hori-topbar-light.html#">
-                                        <img src="assets/images/brands/dropbox.png" alt="dropbox">
+                                        <img src="<?=base_url().'/'?>assets/images/brands/dropbox.png" alt="dropbox">
                                         <span>Dropbox</span>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="layouts-hori-topbar-light.html#">
-                                        <img src="assets/images/brands/mail_chimp.png" alt="mail_chimp">
+                                        <img src="<?=base_url().'/'?>assets/images/brands/mail_chimp.png" alt="mail_chimp">
                                         <span>Mail Chimp</span>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="layouts-hori-topbar-light.html#">
-                                        <img src="assets/images/brands/slack.png" alt="slack">
+                                        <img src="<?=base_url().'/'?>assets/images/brands/slack.png" alt="slack">
                                         <span>Slack</span>
                                     </a>
                                 </div>
@@ -220,7 +206,7 @@
                                                 </a>
                                                 <a href="javascript: void(0);" class="text-reset notification-item">
                                                     <div class="d-flex">
-                                                        <img src="assets/images/users/avatar-3.jpg"
+                                                        <img src="<?=base_url().'/'?>assets/images/users/avatar-3.jpg"
                                                             class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                         <div class="flex-grow-1">
                                                             <h6 class="mb-1">James Lemire</h6>
@@ -255,7 +241,7 @@
 
                                                 <a href="javascript: void(0);" class="text-reset notification-item">
                                                     <div class="d-flex">
-                                                        <img src="assets/images/users/avatar-4.jpg"
+                                                        <img src="<?=base_url().'/'?>assets/images/users/avatar-4.jpg"
                                                             class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                         <div class="flex-grow-1">
                                                             <h6 class="mb-1">Salena Layfield</h6>
@@ -291,7 +277,9 @@
                         </div>
                     </div>
                 </div>
-                test : <div class="dropdown d-inline-block">
+
+                 <div class="dropdown d-inline-block">
+
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img class="rounded-circle header-profile-user"
@@ -300,8 +288,9 @@
                         <span class="d-none d-xl-inline-block ms-1" key="t-henry">Morel</span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
+
+                    <!-- <div class="dropdown-menu dropdown-menu-end">
+                        <!-- item
                         <a class="dropdown-item" href="layouts-hori-topbar-light.html#"><i
                                 class="bx bx-user font-size-16 align-middle me-1"></i> <span
                                 key="t-profile">Profile</span></a>
@@ -319,7 +308,13 @@
                         <a class="dropdown-item text-danger" href="layouts-hori-topbar-light.html#"><i
                                 class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span
                                 key="t-logout">Logout</span></a>
-                    </div>
+                    </div>-->
+
+                    <ul class="dropdown-menu" aria-labelledby="page-header-user-dropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="<?= base_url() . 'logout'?>">Logout</a></li>
+                    </ul>
                 </div>
 
 
@@ -334,31 +329,16 @@
                 <div class="collapse navbar-collapse" id="topnav-menu-content">
                     <ul class="navbar-nav">
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="index.php" id="topnav-dashboard"
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'dashboard' ?>" id="topnav-dashboard"
                             role="button">
-                            <i class="bx bx-home-circle me-2"></i><span key="t-dashboards">Tableau de bord</span></a>
-
-                        <a class="nav-link dropdown-toggle arrow-none" href="page.php" id="topnav-dashboard"
-                            role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Actus ENSP</span> </a>
+                            <i class="bx bx-home-circle me-2"></i><span key="t-dashboards">Tableau de bord</span>
+                        </a>
 
 
-                        <!--                                     
-                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle arrow-none" href="layouts-hori-topbar-light.html#" id="topnav-layout" role="button" >
-                                        <i class="bx bx-layout me-2"></i><span key="t-layouts">Vie de l'école</span> <div class="arrow-down"></div>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="topnav-layout">
-	                                     <a href="trombinoscope.php" class="dropdown-item" key="t-horizontal">Reservations d'espaces</a>
-                                        	 <a href="annuaire.php" class="dropdown-item" key="t-horizontal">Listes</a>
-                                        	 <a href="trombinoscope.php" class="dropdown-item" key="t-horizontal">Trombinoscopes</a>
-                                        	 <a href="annuaire.php" class="dropdown-item" key="t-horizontal">Listes</a>
-                                    
-                                    </div>
-                                </li>
-                                -->
 
-                        <li class="nav-item dropdown">
+
+                        
+                        <!--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle arrow-none" href="layouts-hori-topbar-light.html#"
                                 id="topnav-layout" role="button">
                                 <i class="bx bx-layout me-2"></i><span key="t-layouts">Vie de l'école</span>
@@ -416,9 +396,6 @@
                             </div>
                         </li>
 
-
-
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle arrow-none" href="layouts-hori-topbar-light.html#"
                                 id="topnav-layout" role="button">
@@ -437,9 +414,49 @@
 
 
                             </div>
-                        </li>
+                        </li>-->
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="discrim.php" id="topnav-dashboard"
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'projets' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Appels à projet</span> 
+                        </a>
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'reservations' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Rervations</span> 
+                        </a>
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'magasin' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Magasin</span> 
+                        </a>
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'aide' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Aide</span> 
+                        </a>
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'outils' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Outils</span> 
+                        </a>
+                        
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'plateforme' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Plateforme</span> 
+                        </a>
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'absence' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Gestion d'absece</span> 
+                        </a>
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'formation' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">RH - Formation</span> 
+                        </a>
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'annuaire' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Annuaire</span> 
+                        </a>
+
+
+                       
+
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'aide' ?>" id="topnav-dashboard"
                             role="button">
                             <i class="bx bx-world me-2"></i><span key="t-dashboards">Discrimination/harcèlement</span>
                         </a>
@@ -467,7 +484,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0 font-size-18">Tableau de bord</h4>
+                            <h4 class="mb-sm-0 font-size-18"><?= $pageName ?></h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">

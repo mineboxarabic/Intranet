@@ -30,16 +30,77 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/dashboard', 'Home::Dashboard');
+
+/**
+ * -//_ Dashboard (commun)
+ * -//_ Login (commun)
+ * -//_ réservations jet d’encre (commun)
+ * -//_ Magasin (commun)
+ * -//_ Discrimination/harcements/handicap (commun)
+ * -//_ Outils (ex ressources) (commun)
+ * -//_ plateforme ENSP (commun)
+ * -//_ Gestion d’absence (uniquement personnel)
+ * -//_ RH - formation 
+ * -//_ Annuaire
+ */
+
+//! LogIN (commun)
+    $routes->get('/login', 'LoginC::loginPage');
+    $routes->get('/login_redir', 'LoginC::login');
+    $routes->get('/logout', 'LoginC::logout');
+//!
+
+ //! Dashboard (commun)
+    $routes->get('/dashboard', 'Home::Dashboard');
+//!
+
+//! Réservations jet d’encre (commun)
+    $routes->get('/reservations', 'ReservationsC::index');
+//!
+
+//! Magasin (commun)
+    $routes->get('/magasin', 'MagasinC::index');
+//!
+
+//! Discrimination/harcements/handicap (commun)
+    $routes->get('/aide', 'AideC::index');
+//!
 
 
-//login Routes
-$routes->get('/login_redir', 'LoginC::loginPage');
-$routes->get('/login', 'LoginC::login');
+//! Outils (ex ressources) (commun)
+    $routes->get('/outils', 'OutilsC::index');
+//!
+
+//! plateforme ENSP (commun)
+    $routes->get('/plateforme', 'PlateformeC::index');
+//!
+
+//! Gestion d’absence (uniquement personnel)
+    $routes->get('/absence', 'AbsenceC::index');
+//!
+
+//! RH - formation 
+    $routes->get('/formation', 'FormationC::index');
+//!
+
+//! Annuaire
+    $routes->get('/annuaire', 'AnnuaireC::index');
+//!
+
+//! Projets
+    $routes->get('/projets', 'ProjetC::index');
+    $routes->get('/projets/consulte/(:any)', 'ProjetC::consulteProjet/$1');
+
+    
+    $routes->get('/projets/M', 'ProjetC::afficheProjetsM');
+    $routes->get('/projets/M/consulte/(:any)', 'ProjetC::consulteProjetM/$1');
+    $routes->get('/projets/M/delete/(:any)', 'ProjetC::deleteProjetM/$1');
+    $routes->post('/projets/M/update/(:any)', 'ProjetC::updateProjetM/$1');
+    $routes->get('/projets/M/create', 'ProjetC::createProjetM');
+    $routes->post('/projets/M/add', 'ProjetC::addProjetM');
 
 
-
-
+//!
 
 /*
  * --------------------------------------------------------------------
