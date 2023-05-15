@@ -1,3 +1,10 @@
+<?= $this->extend('layouts/Main') ?>
+
+<?= $this->section('pageName') ?> Creation de Projet <?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+
+
 
 <style>
 #thumnail-project{
@@ -235,3 +242,4 @@
 
 </script>
 
+<?= $this->endSection() ?>

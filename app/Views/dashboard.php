@@ -1,4 +1,13 @@
 
+
+<?= $this->extend('layouts/Main') ?>
+
+<?= $this->section('pageName') ?> Dashboard <?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+
+
+
 <h1>
 <!-- show the userType from the session -->
 <?php echo session()->get('userType'); ?>
@@ -24,3 +33,5 @@
 		<li><a class="dropdown-item" href="#">Something else here</a></li>
 	  </ul>
 	</div>
+	
+<?= $this->endSection() ?>

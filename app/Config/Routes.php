@@ -2,6 +2,9 @@
 
 namespace Config;
 
+//I want to use the model
+use App\Models\PagesM;
+
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -80,7 +83,7 @@ $routes->get('/', 'Home::index');
 //!
 
 //! RH - formation 
-    $routes->get('/formation', 'FormationC::index');
+    $routes->get('/RH/actualite', 'RHC::index');
 //!
 
 //! Annuaire
@@ -102,6 +105,16 @@ $routes->get('/', 'Home::index');
 
 //!
 
+//!Pages
+    //$routes->get('/pages/R/(:any)', 'PagesC::showPage/$1');
+    //$routes->get('/pages/M/(:any)', 'PagesC::consultePage/$1');
+    $pages = new PagesM();
+    $pages = $pages->findAll();
+    foreach ($pages as $page) {
+        $routes->get('/pages/R/'.$page['id'], 'PagesC::showPage/'.$page['id']);
+        $routes->get('/pages/M/'.$page['id'], 'PagesC::consultePage/'.$page['id']);
+    }
+//!
 /*
  * --------------------------------------------------------------------
  * Additional Routing

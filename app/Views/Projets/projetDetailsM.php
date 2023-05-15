@@ -1,3 +1,8 @@
+<?= $this->extend('layouts/Main') ?>
+//TODO: Change the page name
+<?= $this->section('pageName') ?> Projet Details <?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
 
 <style>
 #thumnail-project{
@@ -261,3 +266,4 @@
 
 </script>
 
+<?= $this->endSection() ?>

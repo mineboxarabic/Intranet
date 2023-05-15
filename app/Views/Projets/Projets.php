@@ -1,3 +1,9 @@
+<?= $this->extend('layouts/Main') ?>
+//TODO: Change the page name
+<?= $this->section('pageName') ?> Projets <?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+
 <div class="col-12">
     <div class="card">
         <div class="card-body">
@@ -54,3 +60,4 @@
 
 }
 </style>
+<?= $this->endSection() ?>

@@ -17,7 +17,7 @@ class ProjetC extends BaseController
             'Projets' => $this->Projets->findAll()
         
         );
-        return view('inc/TopNav', ['pageName'=>'Projets']).view('Projets/Projets', $data).view('inc/Footer');
+        return view('Projets/Projets', $data);
     }
     private function getProjetById($id){
         $projet = $this->Projets->where('id_projet', $id)->first();
@@ -29,7 +29,7 @@ class ProjetC extends BaseController
             'pageName' => 'Projet Details of '.$projet['nom_projet'].'',
             'Projet' => $projet
         );
-        return view('inc/TopNav', ['pageName'=>'Projet Details of '.$projet['nom_projet'].'']).view('Projets/ProjetDetails', $data).view('inc/Footer');
+        return view('Projets/ProjetDetails', $data);
     }
 
 
@@ -41,7 +41,7 @@ class ProjetC extends BaseController
             'pageName' => 'Projet Details of '.$projet['nom_projet'].'',
             'Projet' => $projet
         );
-        return view('inc/TopNav', ['pageName'=>'Projet Details of '.$projet['nom_projet'].'']).view('Projets/ProjetDetailsM', $data).view('inc/Footer');
+        return view('Projets/ProjetDetailsM', $data);
     }
 
     private function in_array($needle, $haystack){
@@ -120,102 +120,102 @@ class ProjetC extends BaseController
             $projet['file_img'] = $image;
             $this->Projets->save($projet);
         */
-    $projet = $this->Projets->where('id_projet', $idProjet)->first();
-    if(isset($_FILES['file_image']) &&  $_FILES['file_image']['error'] != 4)
-    {
-        echo "the image is set" . '<br>';
-        $file_image = $_FILES['file_image'];
+        $projet = $this->Projets->where('id_projet', $idProjet)->first();
+        if(isset($_FILES['file_image']) &&  $_FILES['file_image']['error'] != 4)
+        {
+            echo "the image is set" . '<br>';
+            $file_image = $_FILES['file_image'];
 
-            //_ IMAGE
-                $name = $file_image['name'];
-                $tmp_name = $file_image['tmp_name'];
-                $error = $file_image['error'];
-                $size = $file_image['size'];
-                $type = $file_image['type'];
-    
+                //_ IMAGE
+                    $name = $file_image['name'];
+                    $tmp_name = $file_image['tmp_name'];
+                    $error = $file_image['error'];
+                    $size = $file_image['size'];
+                    $type = $file_image['type'];
+        
+                    $ext = explode('.', $name);
+                    $actualExt = strtolower(end($ext));
+                    
+                    if($actualExt == 'jpg' || $actualExt == 'jpeg' || $actualExt == 'png'){
+                        if($error === 0){
+                            if($size < 1000000){
+                                $randomLetter = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'), 0, 1);
+                                $image =  $randomLetter . '_' .$name;
+                                $destination = 'Images/Projets/'.$image;
+                                move_uploaded_file($tmp_name, $destination);
+                            }else{
+                            http_response_code(400);
+                                die("Cette image est trop grande");
+                            }
+                        }
+                    }
+                    else{
+                        http_response_code(400);
+                    die(" Vous pouvez que des images de type jpg, jpeg ou png");
+                    }
+                //_IMAGE
+        }
+        else{
+
+            $image = $projet['file_img'];
+        }
+
+        if(isset($_FILES['pdf_file']) &&  $_FILES['pdf_file']['error'] != 4){
+
+            $pdf_file = $_FILES['pdf_file'];
+
+            //_PDF
+                $name = $pdf_file['name'];
+                $tmp_name = $pdf_file['tmp_name'];
+                $error = $pdf_file['error'];
+                $size = $pdf_file['size'];
+                $type = $pdf_file['type'];
+
                 $ext = explode('.', $name);
                 $actualExt = strtolower(end($ext));
-                
-                if($actualExt == 'jpg' || $actualExt == 'jpeg' || $actualExt == 'png'){
+
+                if($actualExt == 'pdf'){
                     if($error === 0){
                         if($size < 1000000){
                             $randomLetter = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'), 0, 1);
-                            $image =  $randomLetter . '_' .$name;
-                            $destination = 'Images/Projets/'.$image;
+                            $pdf =  $randomLetter .'_'. $name;
+                            $destination = 'Images/Projets/'.$pdf;
                             move_uploaded_file($tmp_name, $destination);
                         }else{
                         http_response_code(400);
-                            die("Cette image est trop grande");
+                            die("Your file is too big");
                         }
                     }
                 }
                 else{
                     http_response_code(400);
-                die(" Vous pouvez que des images de type jpg, jpeg ou png");
+                die("You cannot upload files of this type");
                 }
-            //_IMAGE
-    }
-    else{
-
-        $image = $projet['file_img'];
-    }
-
-    if(isset($_FILES['pdf_file']) &&  $_FILES['pdf_file']['error'] != 4){
-
-        $pdf_file = $_FILES['pdf_file'];
-
-        //_PDF
-            $name = $pdf_file['name'];
-            $tmp_name = $pdf_file['tmp_name'];
-            $error = $pdf_file['error'];
-            $size = $pdf_file['size'];
-            $type = $pdf_file['type'];
-
-            $ext = explode('.', $name);
-            $actualExt = strtolower(end($ext));
-
-            if($actualExt == 'pdf'){
-                if($error === 0){
-                    if($size < 1000000){
-                        $randomLetter = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'), 0, 1);
-                        $pdf =  $randomLetter .'_'. $name;
-                        $destination = 'Images/Projets/'.$pdf;
-                        move_uploaded_file($tmp_name, $destination);
-                    }else{
-                    http_response_code(400);
-                        die("Your file is too big");
-                    }
-                }
-            }
-            else{
-                http_response_code(400);
-            die("You cannot upload files of this type");
-            }
-        //_PDF
-    }
-    else{
-        $pdf = $projet['file'];
-    }
+            //_PDF
+        }
+        else{
+            $pdf = $projet['file'];
+        }
 
 
-    $editor = $_POST['editor'];
-    $title = $_POST['title'];
-    $commanditaire = $_POST['commanditaire'];
-    $date_fin = $_POST['date_fin'];
+        $editor = $_POST['editor'];
+        $title = $_POST['title'];
+        $commanditaire = $_POST['commanditaire'];
+        $date_fin = $_POST['date_fin'];
 
 
-    $projet = $this->Projets->where('id_projet', $idProjet)->first();
+        $projet = $this->Projets->where('id_projet', $idProjet)->first();
 
-    $projet['nom_projet'] = $title;
-    $projet['commanditaire'] = $commanditaire;
-    $projet['date_fin'] = $date_fin;
-    $projet['descriptif'] = $editor;
-    $projet['file_img'] = $image;
-    $projet['file'] = $pdf;
-    $this->Projets->save($projet);
+        $projet['nom_projet'] = $title;
+        $projet['commanditaire'] = $commanditaire;
+        $projet['date_fin'] = $date_fin;
+        $projet['descriptif'] = $editor;
+        $projet['file_img'] = $image;
+        $projet['file'] = $pdf;
+        $this->Projets->save($projet);
 
-    return redirect()->to(base_url().'projets/M/consulte/'.$idProjet);
-    
+        return redirect()->to(base_url().'projets/M/consulte/'.$idProjet);
+        
 
 
 
@@ -244,7 +244,7 @@ class ProjetC extends BaseController
             'pageName' => 'Projets Manager',
             'Projets' => $data
         );
-        return view('inc/TopNav', ['pageName'=>'Projets / Projets Manager']).view('Projets/ProjetsManager', $data).view('inc/Footer');
+        return view('Projets/ProjetsManager', $data);
     }
     public function deleteProjetM($id){
 
@@ -346,7 +346,7 @@ class ProjetC extends BaseController
         $data = array(
             'pageName' => 'Ajoute Projet',
         );
-        return view('inc/TopNav', ['pageName'=>'Ajoute Projet']).view('Projets/ProjetCreate', $data).view('inc/Footer');
+        return view('Projets/ProjetCreate');
     }
 
 }
