@@ -1,5 +1,9 @@
 <?php
 namespace App\Controllers;
+use \Functions;
+
+//inculde Functions class from the app/controllers/Functions.php
+
 
 class ProjetC extends BaseController
 {
@@ -126,7 +130,7 @@ class ProjetC extends BaseController
             echo "the image is set" . '<br>';
             $file_image = $_FILES['file_image'];
 
-                //_ IMAGE
+                /*//_ IMAGE
                     $name = $file_image['name'];
                     $tmp_name = $file_image['tmp_name'];
                     $error = $file_image['error'];
@@ -153,7 +157,14 @@ class ProjetC extends BaseController
                         http_response_code(400);
                     die(" Vous pouvez que des images de type jpg, jpeg ou png");
                     }
-                //_IMAGE
+                //_IMAGE*/
+
+                include (APPPATH . 'Classes/Functions.php');
+                $functions = new Functions();
+    
+                
+                //$pdf = $functions->upload($_FILES['pdf_file'], ['pdf'],1000000, 'PDF/Projets');
+                $image = $functions->upload($_FILES['file_image'], ['jpg', 'jpeg', 'png'],1000000, 'Images/Projets/');   
         }
         else{
 
@@ -164,7 +175,7 @@ class ProjetC extends BaseController
 
             $pdf_file = $_FILES['pdf_file'];
 
-            //_PDF
+            /*//_PDF
                 $name = $pdf_file['name'];
                 $tmp_name = $pdf_file['tmp_name'];
                 $error = $pdf_file['error'];
@@ -191,7 +202,14 @@ class ProjetC extends BaseController
                     http_response_code(400);
                 die("You cannot upload files of this type");
                 }
-            //_PDF
+            //_PDF*/
+           
+            include (APPPATH . 'Classes/Functions.php');
+            $functions = new Functions();
+
+            
+            $pdf = $functions->upload($_FILES['pdf_file'], ['pdf'],1000000, 'PDF/Projets');
+            
         }
         else{
             $pdf = $projet['file'];
