@@ -3,3 +3,18 @@
     layouts are used to make the code more readable and easy to understand.
     And i modified the code to make it more readable (changed all the views and controllers that used the old way).
 
+    I did the page dynamic linking where we add a page in the database with it's content and we can edit this content using CKEditor and we can access it using the url from the lable attribut website/label.
+
+
+    I am trying to make the images work with ckeditor but i am having some problems with it.
+
+    I didn't succeed in making the images work with ckeditor.
+
+    now i am working on the annuaire page.
+
+
+    I Created a way to have infinite number of pages in the website (routes, pages, html content) from the database.
+
+    I learned the diffrence between development and production environment (And i learned the hard way that i should always work in the development environment).
+
+    I learned how to connect two databases in the same project in codeigniter.

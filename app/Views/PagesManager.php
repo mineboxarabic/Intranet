@@ -13,8 +13,6 @@
 
 <?php 
 
-print_r('test')
-
 ?>
 
 
@@ -23,19 +21,40 @@ print_r('test')
         <head>
                 <meta charset="utf-8">
                 <title>CKEditor</title>
-                <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
+                <script src="<?= base_url() . 'assets/libs/ckeditor/ckeditor.js'?>"></script>
+                <script src="<?= base_url() . 'assets/libs/ckfinder/ckfinder.js'?>"></script>
+                
         </head>
         <body>
-                <div id="editor">This is some sample content.</div>
+                <div id="editor">
+                        <?= $page['contenu'] ?>
+                </div>
                 <script>
-                        ClassicEditor
-                                .create( document.querySelector( '#editor' ) )
-                                .then( editor => {
-                                        console.log( editor );
-                                } )
-                                .catch( error => {
-                                        console.error( error );
-                                } );
+                        CKEDITOR.replace('editor',{
+                                filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
+                                filebrowserImageBrowseUrl: '/ckfinder/ckfinder.html?Type=Images',
+                                filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                                filebrowserImageUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                                filebrowserWindowWidth : '1000',
+                                filebrowserWindowHeight : '700'
+                        });
+                        var editor = CKEDITOR.instances.editor;
+                        CKFinder.setupCKEditor(editor);
+
+
+                        function save(){
+                                var data = CKEDITOR.instances.editor.getData();
+                                console.log(data);
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function() {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                                console.log(this.responseText);
+                                        }
+                                };
+                                xhttp.open("POST", "<?= base_url() . '/pages/M/update/' . $page['id'] ?>", true);
+                                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                xhttp.send("contenu="+data);
+                        }
                 </script>
         </body>
 

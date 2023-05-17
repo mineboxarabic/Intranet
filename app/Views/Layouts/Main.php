@@ -1,5 +1,8 @@
-
 <!-- App favicon -->
+<?php 
+    //import the session 
+    $session = \Config\Services::session();
+?>
 <link rel="shortcut icon" href="<?=base_url().'/'?>assets/images/favicon.ico">
 
 <!-- Bootstrap Css -->
@@ -8,7 +11,11 @@
 <link href="<?=base_url().'/'?>assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <!-- App Css-->
 <link href="<?=base_url().'/'?>assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-<body data-topbar="light" data-layout="horizontal" ></body>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+
+<body data-topbar="light" data-layout="horizontal"></body>
 
 <div id="layout-wrapper">
 
@@ -96,7 +103,7 @@
                     </div>
                 </div>
 
-     
+
                 <div class="dropdown d-none d-lg-inline-block ms-1">
                     <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -113,7 +120,8 @@
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="layouts-hori-topbar-light.html#">
-                                        <img src="<?=base_url().'/'?>assets/images/brands/bitbucket.png" alt="bitbucket">
+                                        <img src="<?=base_url().'/'?>assets/images/brands/bitbucket.png"
+                                            alt="bitbucket">
                                         <span>Bitbucket</span>
                                     </a>
                                 </div>
@@ -134,7 +142,8 @@
                                 </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="layouts-hori-topbar-light.html#">
-                                        <img src="<?=base_url().'/'?>assets/images/brands/mail_chimp.png" alt="mail_chimp">
+                                        <img src="<?=base_url().'/'?>assets/images/brands/mail_chimp.png"
+                                            alt="mail_chimp">
                                         <span>Mail Chimp</span>
                                     </a>
                                 </div>
@@ -159,8 +168,9 @@
                     <button type="button" class="btn header-item noti-icon waves-effect"
                         id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <i class="bx bx-bell bx-tada"></i>
-                        <span class="badge bg-danger rounded-pill">3</span>
+                        <!-- TODO: add badge when notification will be ready add this class too bx-tada -->
+                        <i class="bx bx-bell "></i>
+                        <!-- <span class="badge bg-danger rounded-pill">3</span>-->
                     </button>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                         aria-labelledby="page-header-notifications-dropdown">
@@ -183,8 +193,10 @@
                                 <div class="simplebar-mask">
                                     <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
                                         <div class="simplebar-content-wrapper" style="height: auto; overflow: hidden;">
+
+
                                             <div class="simplebar-content" style="padding: 0px;">
-                                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                                <!--<a href="javascript: void(0);" class="text-reset notification-item">
                                                     <div class="d-flex">
                                                         <div class="avatar-xs me-3">
                                                             <span
@@ -253,6 +265,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </a>-->
+
+                                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                                    Auccun notification
                                                 </a>
                                             </div>
                                         </div>
@@ -278,14 +294,19 @@
                     </div>
                 </div>
 
-                 <div class="dropdown d-inline-block">
+                <div class="dropdown d-inline-block">
 
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user"
-                            src="https://lh3.googleusercontent.com/a/AATXAJythYcT4oIJTRHBsl6U-wqFwPgMdON6S0Qv4yfv=s96-c"
-                            alt="Header Avatar">
-                        <span class="d-none d-xl-inline-block ms-1" key="t-henry">Morel</span>
+                        <img class="rounded-circle header-profile-user" src=<?php
+                                if($_SESSION['current_user']['picture'] != null){
+                                    echo $_SESSION['current_user']['picture'];
+                                }else{
+                                    echo "https://lh3.googleusercontent.com/a/AATXAJythYcT4oIJTRHBsl6U-wqFwPgMdON6S0Qv4yfv=s96-c";
+                                }
+                            ?> alt="Header Avatar">
+                        <span class="d-none d-xl-inline-block ms-1"
+                            key="t-henry"><?php  print_r($_SESSION['current_user']['first_name'])?></span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     </button>
 
@@ -311,7 +332,7 @@
                     </div>-->
 
                     <ul class="dropdown-menu" aria-labelledby="page-header-user-dropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="profile">Profile</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="<?= base_url() . 'logout'?>">Logout</a></li>
                     </ul>
@@ -329,15 +350,15 @@
                 <div class="collapse navbar-collapse" id="topnav-menu-content">
                     <ul class="navbar-nav">
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'dashboard' ?>" id="topnav-dashboard"
-                            role="button">
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'dashboard' ?>"
+                            id="topnav-dashboard" role="button">
                             <i class="bx bx-home-circle me-2"></i><span key="t-dashboards">Tableau de bord</span>
                         </a>
 
 
 
 
-                        
+
                         <!--<li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle arrow-none" href="layouts-hori-topbar-light.html#"
                                 id="topnav-layout" role="button">
@@ -419,60 +440,83 @@
 
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'projets' ?>" id="topnav-dashboard" role="button">
-                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Appels à projet</span> 
+                            <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'projets' ?>"
+                                id="topnav-dashboard" role="button">
+                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Appels à projet</span>
                             </a>
 
 
                             <div class="dropdown-menu" aria-labelledby="topnav-layout">
-                                <a  href="<?= base_url().'projets/M' ?>" class="dropdown-item" key="t-horizontal">Projet Manager</a>
-       
-                               
+                                <a href="<?= base_url().'projets/M' ?>" class="dropdown-item" key="t-horizontal">Projet
+                                    Manager</a>
+
+
 
                             </div>
 
-                           
+
                         </li>
-                       
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'reservations' ?>" id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Rervations</span> 
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'reservations' ?>"
+                            id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Rervations</span>
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'magasin' ?>" id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Magasin</span> 
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'magasin' ?>"
+                            id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Magasin</span>
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'aide' ?>" id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Aide</span> 
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'aide' ?>"
+                            id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Aide</span>
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'outils' ?>" id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Outils</span> 
-                        </a>
-                        
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'plateforme' ?>" id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Plateforme</span> 
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'outils' ?>"
+                            id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Outils</span>
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'absence' ?>" id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Gestion d'absece</span> 
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'plateforme' ?>"
+                            id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Plateforme</span>
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'RH/actualite' ?>" id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">RH - Formation</span> 
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'absence' ?>"
+                            id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Gestion d'absece</span>
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'annuaire' ?>" id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Annuaire</span> 
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'RH/actualite' ?>"
+                            id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">RH - Formation</span>
                         </a>
 
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'annuaire' ?>"
+                            id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Annuaire</span>
+                        </a>
 
-                       
+                        <?php 
+                            /*//Use the model 
+                            $model = new \App\Models\PagesM();
+                            $pages = $model->findAll();
+                            foreach($pages as $page){
+                                echo '<a class="nav-link dropdown-toggle arrow-none" href="'.base_url().'pages/R/'.$page['id'].'" id="topnav-dashboard" role="button">
+                                <i class="bx bx-world me-2"></i><span key="t-dashboards">'.$page['titre'].'</span>
+                            </a>';
+                            }*/
+
+                            
+                        ?>
 
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'aide' ?>" id="topnav-dashboard"
-                            role="button">
+
+
+
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'aide' ?>"
+                            id="topnav-dashboard" role="button">
                             <i class="bx bx-world me-2"></i><span key="t-dashboards">Discrimination/harcèlement</span>
                         </a>
 
@@ -516,65 +560,130 @@
                 <?= $this->renderSection('content') ?>
 
                 <footer class="footer">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-6">
-                <script>
-                document.write(new Date().getFullYear())
-                </script> © Skote.
-            </div>
-            <div class="col-sm-6">
-                <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by Themesbrand
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <script>
+                                document.write(new Date().getFullYear())
+                                </script> © Skote.
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-end d-none d-sm-block">
+                                    Design & Develop by Themesbrand
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </footer>
+
+    <script>
+    class imageInput {
+        constructor(image, nameInput, form) {
+            let input = document.createElement('input');
 
 
-        <!--<script src="assets/libs/jquery/jquery.min.js"></script>-->
-        <!-- <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js" integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-        
-        
-        
-        <script src="<?= base_url().'/'?>assets/libs/metismenu/metisMenu.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/simplebar/simplebar.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/node-waves/waves.min.js"></script>
-        
-          <!-- Required datatable js -->
+            input.type = 'file';
+            input.hidden = true;
+            //input.accept='image/*';
+            input.name = nameInput;
+            input.placeholder = 'image';
+            form.appendChild(input);
+
+
+            input.addEventListener('change', function() {
+                let file = this.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.addEventListener('load', function() {
+                        image.setAttribute('src', this.result);
+                    });
+                    reader.readAsDataURL(file);
+
+                }
+            });
+
+            image.addEventListener('click', function() {
+                input.click();
+            });
+
+            image.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+
+            image.addEventListener('drop', function(e) {
+                e.preventDefault();
+                let file = e.dataTransfer.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.addEventListener('load', function() {
+                        image.setAttribute('src', this.result);
+                    });
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            image.style.cursor = 'pointer';
+
+        }
+    }
+    </script>
+    <!--<script src="assets/libs/jquery/jquery.min.js"></script>-->
+    <!-- <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"
+        integrity="sha512-efUTj3HdSPwWJ9gjfGR71X9cvsrthIA78/Fvd/IN+fttQVy7XWkOAXb295j8B3cmm/kFKVxjiNYzKw9IQJHIuQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+        integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous">
+    </script>
+
+
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="<?= base_url().'/'?>assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/node-waves/waves.min.js"></script>
+
+    <!-- Required datatable js 
         <script src="<?= base_url().'/'?>assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-        <!-- Buttons examples -->
-        <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/jszip/jszip.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/pdfmake/build/pdfmake.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/pdfmake/build/vfs_fonts.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-        
-        <!-- Responsive examples -->
-        <script src="<?= base_url().'/'?>assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-        <script src="<?= base_url().'/'?>assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+        <script src="<?= base_url().'/'?>assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>-->
+    <!-- Buttons examples -->
+    <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/jszip/jszip.min.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 
-        <!-- Datatable init js -->
-        <script src="<?= base_url().'/'?>assets/js/pages/datatables.init.js"></script>    
+    <!-- Responsive examples -->
+    <script src="<?= base_url().'/'?>assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="<?= base_url().'/'?>assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js">
+    </script>
 
-        <script src="<?= base_url().'/'?>assets/js/app.js"></script>
+    <!-- Datatable init js -->
+    <script src="<?= base_url().'/'?>assets/js/pages/datatables.init.js"></script>
 
-
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-
-        
+    <script src="<?= base_url().'/'?>assets/js/app.js"></script>
 
 
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous">
+    </script>
+
+
+
+
+    </body>

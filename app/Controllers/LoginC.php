@@ -69,7 +69,7 @@ class LoginC extends BaseController{
             $userModel = new UserModel();
             $user = $userModel->where('email', $userEmail)->first();
             session()->set('current_user', $user);
-          
+            $_SESSION['current_user'] = $user;
             if($user){
 
                 $userType = $user['rang'] == 0 ? "student" : "personnel";

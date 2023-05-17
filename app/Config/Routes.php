@@ -65,9 +65,7 @@ $routes->get('/', 'Home::index');
     $routes->get('/magasin', 'MagasinC::index');
 //!
 
-//! Discrimination/harcements/handicap (commun)
-    $routes->get('/aide', 'AideC::index');
-//!
+
 
 
 //! Outils (ex ressources) (commun)
@@ -80,6 +78,7 @@ $routes->get('/', 'Home::index');
 
 //! Gestion d’absence (uniquement personnel)
     $routes->get('/absence', 'AbsenceC::index');
+    $routes->post('/absence/send', 'AbsenceC::sendAbsence');
 //!
 
 //! RH - formation 
@@ -88,6 +87,7 @@ $routes->get('/', 'Home::index');
 
 //! Annuaire
     $routes->get('/annuaire', 'AnnuaireC::index');
+    $routes->get('/annuaire/getAnnuaire', 'AnnuaireC::getAnnuaire');
 //!
 
 //! Projets
@@ -111,10 +111,16 @@ $routes->get('/', 'Home::index');
     $pages = new PagesM();
     $pages = $pages->findAll();
     foreach ($pages as $page) {
-        $routes->get('/pages/R/'.$page['id'], 'PagesC::showPage/'.$page['id']);
-        $routes->get('/pages/M/'.$page['id'], 'PagesC::consultePage/'.$page['id']);
+        $routes->get('/'.$page['lable'], 'PagesC::showPage/'.$page['lable']);
+        $routes->get('/'.$page['lable'].'/M', 'PagesC::consultePage/'.$page['lable']);
+        $routes->POST('/'.$page['lable'].'/upload', 'PagesC::uploadImages/'.$page['id']);
     }
 //!
+
+//!Profile
+    $routes->get('/profile', 'UserC::profile');
+    $routes->post('/profile/update', 'UserC::updateProfile');
+    $routes->post('/profile/updatePassword', 'UserC::updatePassword');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
