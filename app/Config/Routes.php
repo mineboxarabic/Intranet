@@ -78,6 +78,8 @@ $routes->get('/', 'Home::index');
 
 //! Gestion d’absence (uniquement personnel)
     $routes->get('/absence', 'AbsenceC::index');
+    $routes->get('/absence/M', 'AbsenceC::absenceManager');
+
     $routes->post('/absence/send', 'AbsenceC::sendAbsence');
 //!
 

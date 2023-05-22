@@ -483,10 +483,25 @@
                             <i class="bx bx-world me-2"></i><span key="t-dashboards">Plateforme</span>
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'absence' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Gestion d'absece</span>
-                        </a>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'absence' ?>"
+                                id="topnav-dashboard" role="button">
+                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Gestion d'absece</span>
+                            </a>
+
+
+                            <div class="dropdown-menu" aria-labelledby="topnav-layout">
+                                <a href="<?= base_url().'absence/M' ?>" class="dropdown-item" key="t-horizontal">Gestion d'absece
+                                    Manager</a>
+
+
+
+                            </div>
+
+
+                        </li>
 
                         <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'RH/actualite' ?>"
                             id="topnav-dashboard" role="button">

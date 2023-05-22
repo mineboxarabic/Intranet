@@ -39,6 +39,11 @@ class leavesM extends Model{
         $query = $builder->get();
         return $query->getResultArray();
     }
+
+    public function insertNewLeave($data){
+        $builder = $this->db->table('leaves');
+        $builder->insert($data);
+    }
     protected $table = 'leaves';
     protected $primaryKey = 'id';
 
@@ -48,7 +53,7 @@ class leavesM extends Model{
 
     protected $useSoftDeletes = false;
 // id titre contenu date updated_at
-    //protected $allowedFields = ['titre', 'contenu', 'date'];
+    protected $allowedFields = ['*'];
 
 
     protected $useTimestamps = false;

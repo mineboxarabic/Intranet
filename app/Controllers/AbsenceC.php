@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use App\Entities\Absence\LeavesE;
 use App\Models\userAbsenceM;
 use App\Models\UserModel;
 
@@ -91,11 +92,12 @@ class AbsenceC extends BaseController
             'Compte_epargne_temps' => $CET1 .'/'. $CET,
         ];
 
-        return view('Absence', $data);
+        return view('Absence/Absence', $data);
     }
 
     public function sendAbsence(){
         $userAbsence = model('App\Models\Absence\userAbsenceM');
+        $leaves = model('App\Models\Absence\LeavesM');
         $user = new UserModel();
         
         $user = $user->where('id', session()->get('current_user')['id'])->first();
@@ -106,6 +108,43 @@ class AbsenceC extends BaseController
 
         $emailManager = $user['manager'];
         $manager = $userAbsence->db->table('users')->where('id', $emailManager)->get()->getResultArray()[0];
+
+
+
+//create new leave
+        $startdata = $this->request->getVar('startdate');
+        $enddata = $this->request->getVar('enddate');
+        $status = 1;
+        $employee = $userId;
+        $motif = $this->request->getVar('motif');
+        $statdatetype = $this->request->getVar('startdatetype');
+        $enddatetype = $this->request->getVar('enddatetype');
+        $duration = $this->request->getVar('duration');
+        $type = $this->request->getVar('type');
+
+        $data = array(
+            'startdate' => $startdata,
+            'enddate' => $enddata,
+            'status' => $status,
+            'employee' => $employee,
+            'cause' => $motif,
+            'startdatetype' => $statdatetype,
+            'enddatetype' => $enddatetype,
+            'duration' => $duration,
+            'type' => $type,
+            'comments' => '',
+            'document' => ''
+        );
+        print_r($data);
+
+        $leaves->insertNewLeave($data);
+
+
+
+
+
+
+
 
         //send email to manager
         echo $manager['email'];
@@ -118,7 +157,7 @@ class AbsenceC extends BaseController
             'SMTPUser' => 'robert.morel@ensp-arles.fr',
             'SMTPPass' => '9crh25x3',
             'mailType' => 'html',
-            'charset' => 'iso-8859-1',
+            'charset' => 'utf-8',
             'newline' => "\r\n",
 
         );
@@ -130,8 +169,9 @@ class AbsenceC extends BaseController
         $email->setFrom('robert.morel@ensp-arles.fr', 'Robert Morels');
         $email->setTo($manager['email']);
 
-        $email->setSubject('EmailXXXXXXX Test');
-        $email->setMessage('Testing the email class.');
+        $email->setSubject("Nouvelle demande d'absence");
+        $message = "Bonjour Benoit,<br> <br> ".$user['firstname'] ." ". $user['lastname']." vient d'effectuer une nouvelle demande d'absence.<br><br> <br> Vous pouvez la consulter dans votre espace sur l'extranet.<br>** Ceci est un message généré automatiquement, veuillez ne pas répondre à ce message ***";
+        $email->setMessage($message);
 
         if($email->send()){
             echo 'Email successfully sent';
@@ -140,6 +180,10 @@ class AbsenceC extends BaseController
         }
 
 
+        //redirect to absence page
+        return redirect()->to(base_url() . 'absence');
+
+
         
 
         
@@ -148,6 +192,10 @@ class AbsenceC extends BaseController
 
 
 
+    }
+
+    public function absenceManager(){
+        
     }
 
 }

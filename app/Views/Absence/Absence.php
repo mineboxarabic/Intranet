@@ -45,7 +45,7 @@
                                     <input class="form-control" type="date" id="date1" name="startdate"><br>
                                     <label for="moment1">Moment :</label>
                                     <select id="moment1" name="startdatetype">
-                                        <option value="matin">Matin</option>
+                                        <option selected value="matin">Matin</option>
                                         <option value="apres-midi">Après-midi</option>
                                     </select>
                                 </div>
@@ -67,7 +67,7 @@
                                     <input type="date" class="form-control" id="date2" name="enddate"><br>
                                     <label for="moment2">Moment :</label>
                                     <select id="moment2" name="enddatetype">
-                                        <option value="matin">Matin</option>
+                                        <option selected value="matin">Matin</option>
                                         <option value="apres-midi">Après-midi</option>
                                     </select><br>
                                 </div>
@@ -86,6 +86,7 @@
                     <div class="col-sm-11">
 
                         <p>Nombre de journées utilisées : <span id="resultat" style="font-style: bold;"></span></p>
+                            <input type="text" id="duration" name="duration" hidden>
                         <em>Si le résultat vous parait correct, vous pouvez passer à l'étapes suivante.</em>
                     </div>
                 </div>
@@ -119,9 +120,8 @@
                                         required>
                                         <option value="">Choisir un type</option>
                                         <option value="13"> Congés annuels</option>
-                                        <option value="14"> Congés N-1</option>
+                                        <option value="1"> Recuperation </option>
                                         <option value="15"> Compte épargne temps</option>
-                                        <option value="1">Heures effectuées hors horaires habituels / Récupération</option>
                                     </select>
                                 </div>
                             </div>
@@ -132,8 +132,7 @@
 
                                 <label for="name" class="col-sm-2 control-label">Observation</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="obs" name="motif" placeholder="Observation"
-                                        autocomplete="off" disabled>
+                                    <input disabled type="text" class="form-control" id="obs" name="motif" placeholder="Observation">
                                 </div>
                             </div>
 
@@ -193,6 +192,7 @@ function calculer() {
     }
     document.getElementById("resultat").innerHTML = demi_journees_utilisees;
     document.getElementById("resultat").style.fontWeight = "bold";
+    document.getElementById("duration").value = demi_journees_utilisees;
     //document.getElementById("duration").innerHTML = demi_journees_utilisees;
     document.getElementById("result_input").innerHTML = demi_journees_utilisees;
     $("#inputValid").removeAttr("disabled");
@@ -204,7 +204,8 @@ function calculer() {
 let dates = document.querySelectorAll('input');
 dates.forEach(
     function(date) {
-        date.value = new Date().toISOString().slice(0, 10);
+        if(date.id != 'obs')
+            date.value = new Date().toISOString().slice(0, 10);
 
         date.addEventListener('change', function() {
             calculer();
@@ -217,6 +218,7 @@ dates.forEach(
                }
             });
         }
+
     }
 )
 
