@@ -108,14 +108,41 @@ class AbsenceC extends BaseController
         $manager = $userAbsence->db->table('users')->where('id', $emailManager)->get()->getResultArray()[0];
 
         //send email to manager
-        $to = $manager['email'];
-        $subject = 'Demande de congé';
-        $message = 'Bonjour, une demande de congeeeee suuuuuuuuuuuuuuu';
-        $headers = 'From: mineboxarabic@gmail.com' . "\r\n" .
-        'Reply-To: suuu' . "\r\n" .
-        'X-Mailer: PHP/' . phpversion();
+        echo $manager['email'];
+        $emailConfig = array(
+            'protocol' => 'smtp',
+            'SMTPHost' => 'smtp.gmail.com',
 
-        mail($to, $subject, $message, $headers);
+            'SMTPCrypto' => 'ssl',
+            'SMTPPort' => 465,
+            'SMTPUser' => 'robert.morel@ensp-arles.fr',
+            'SMTPPass' => '9crh25x3',
+            'mailType' => 'html',
+            'charset' => 'iso-8859-1',
+            'newline' => "\r\n",
+
+        );
+       
+
+        $email = \Config\Services::email();
+        $email->initialize($emailConfig);
+
+        $email->setFrom('robert.morel@ensp-arles.fr', 'Robert Morels');
+        $email->setTo($manager['email']);
+
+        $email->setSubject('EmailXXXXXXX Test');
+        $email->setMessage('Testing the email class.');
+
+        if($email->send()){
+            echo 'Email successfully sent';
+        }else{
+            echo $email->printDebugger(['headers']);
+        }
+
+
+        
+
+        
 
 
 

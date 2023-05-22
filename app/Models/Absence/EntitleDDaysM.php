@@ -26,7 +26,7 @@ class EntitleDDaysM extends Model{
             'compress' => false,
             'strictOn' => false,
             'failover' => [],
-            'port'     => 3306,
+            'port'     => 3308,
         ];
         $this->db = \Config\Database::connect($custom);
         
