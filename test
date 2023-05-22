@@ -3,8 +3,9 @@
     layouts are used to make the code more readable and easy to understand.
     And i modified the code to make it more readable (changed all the views and controllers that used the old way).
 
-    I did the page dynamic linking where we add a page in the database with it's content and we can edit this content using CKEditor and we can access it using the url from the lable attribut website/label.
 
+    I did the page dynamic linking where we add a page in the database with it's content and we can edit this content using CKEditor and we can access it using the url from the lable attribut website/label.
+    
 
     I am trying to make the images work with ckeditor but i am having some problems with it.
 
@@ -18,3 +19,10 @@
     I learned the diffrence between development and production environment (And i learned the hard way that i should always work in the development environment).
 
     I learned how to connect two databases in the same project in codeigniter.
+
+
+
+5/15/2023
+
+    I found a way to upload image without uploading it to the server (using base64) and i am trying to make it work with ckeditor but the only problem is the size of the image that can be too big in the databases.
+    
