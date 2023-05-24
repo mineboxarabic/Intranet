@@ -463,10 +463,21 @@
                             <i class="bx bx-world me-2"></i><span key="t-dashboards">Rervations</span>
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'magasin' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Magasin</span>
-                        </a>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'magasin/Materiels' ?>"
+                                id="topnav-dashboard" role="button">
+                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Materiels</span>
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="topnav-layout">
+                                <a href="<?= base_url().'magasin/Lots' ?>" class="dropdown-item" key="t-horizontal">Lots</a>
+                                <a href="<?= base_url().'magasin/Reservations' ?>" class="dropdown-item" key="t-horizontal">Mes reservations</a>
+                            </div>
+
+
+
+                        </li>
 
                         <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'aide' ?>"
                             id="topnav-dashboard" role="button">

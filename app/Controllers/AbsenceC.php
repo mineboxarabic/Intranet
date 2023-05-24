@@ -111,10 +111,10 @@ class AbsenceC extends BaseController
 
 
 
-//create new leave
+        //create new leave
         $startdata = $this->request->getVar('startdate');
         $enddata = $this->request->getVar('enddate');
-        $status = 1;
+        $status = 2;
         $employee = $userId;
         $motif = $this->request->getVar('motif');
         $statdatetype = $this->request->getVar('startdatetype');
@@ -182,20 +182,139 @@ class AbsenceC extends BaseController
 
         //redirect to absence page
         return redirect()->to(base_url() . 'absence');
-
-
-        
-
-        
-
-
-
-
-
     }
 
     public function absenceManager(){
+        $userAbsence = model('App\Models\Absence\userAbsenceM');
+        $leaves = model('App\Models\Absence\LeavesM');
+        $user = new UserModel();
+
+        $user = $user->where('id', session()->get('current_user')['id'])->first();
+        $user = $userAbsence->getUserByEmail($user['email']);
+        $user = $user[0];
+
+        $usersUnderUser = $userAbsence->getUsersByManager($user['id']);
+
+
+
+        $leavesOfUsers = [];
+        foreach ($usersUnderUser as $key => $value) {
+            $leavesOfUsers[$value['id']] = $leaves->getLeavesByUserThisYear($value['id']);
+        }
+
+        $history = model('App\Models\Absence\leaves_historyM');
+
+      
         
+        $history = $history->getAllHistoryByUser($user['id']);
+        
+
+        $data = [
+            'users' => $usersUnderUser,
+            'leaves' => $leavesOfUsers,
+            'history' => $history,
+            'userHist' => $user
+        ];
+
+
+
+        return view('Absence/AbsenceManager', $data);
+        
+    }
+
+    public function validateAbsence(){
+        $id = $this->request->getVar('id');
+        $leaves = model('App\Models\Absence\LeavesM');
+
+
+        $userAbsence = model('App\Models\Absence\userAbsenceM');
+        $leave = $leaves->validateLeave($id,3)[0];
+        print_r($leave);
+
+        //get the user where id = $leave['employee']
+        $user = $userAbsence->db->table('users')->where('id', $leave['employee'])->get()->getResultArray()[0];
+
+
+       print_r($user);
+        //!Change the email 
+
+        $emailConfig = array(
+            'protocol' => 'smtp',
+            'SMTPHost' => 'smtp.gmail.com',
+
+            'SMTPCrypto' => 'ssl',
+            'SMTPPort' => 465,
+            'SMTPUser' => 'robert.morel@ensp-arles.fr',
+            'SMTPPass' => '9crh25x3',
+            'mailType' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n",
+
+        );
+       
+
+        $email = \Config\Services::email();
+        $email->initialize($emailConfig);
+
+        $email->setFrom('robert.morel@ensp-arles.fr', 'Robert Morels');
+        $email->setTo($user['email']);
+
+        $email->setSubject("demande d'absence Acceptée");
+        $message = "Bonjour".$user['firstname'] .' '.$user['lastname']."<br>Votre demande d'absence a été acceptée par votre supérieur(e) hiérarchique<br><br><br>** Ceci est un message généré automatiquement, veuillez ne pas répondre à ce message ***";
+        $email->setMessage($message);
+        
+        if($email->send()){
+            echo 'Email successfully sent';
+        }else{
+            echo $email->printDebugger(['headers']);
+        }
+    }
+
+    public function RefuseAbsence(){
+        $id = $this->request->getVar('id');
+        $leaves = model('App\Models\Absence\LeavesM');
+
+
+        $userAbsence = model('App\Models\Absence\userAbsenceM');
+        $leave = $leaves->validateLeave($id,4)[0];
+        print_r($leave);
+
+        //get the user where id = $leave['employee']
+        $user = $userAbsence->db->table('users')->where('id', $leave['employee'])->get()->getResultArray()[0];
+
+
+       print_r($user);
+        //!Change the email 
+        $emailConfig = array(
+            'protocol' => 'smtp',
+            'SMTPHost' => 'smtp.gmail.com',
+
+            'SMTPCrypto' => 'ssl',
+            'SMTPPort' => 465,
+            'SMTPUser' => 'robert.morel@ensp-arles.fr',
+            'SMTPPass' => '9crh25x3',
+            'mailType' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n",
+
+        );
+       
+
+        $email = \Config\Services::email();
+        $email->initialize($emailConfig);
+
+        $email->setFrom('robert.morel@ensp-arles.fr', 'Robert Morels');
+        $email->setTo($user['email']);
+
+        $email->setSubject("demande d'absence a ete refusée");
+        $message = "Bonjour".$user['firstname'] .' '.$user['lastname']."<br>Votre demande d'absence a été refusée par votre supérieur(e) hiérarchique<br><br><br>** Ceci est un message généré automatiquement, veuillez ne pas répondre à ce message ***";
+        $email->setMessage($message);
+
+        if($email->send()){
+            echo 'Email successfully sent';
+        }else{
+            echo $email->printDebugger(['headers']);
+        }
     }
 
 }

@@ -44,6 +44,35 @@ class leavesM extends Model{
         $builder = $this->db->table('leaves');
         $builder->insert($data);
     }
+
+    public function getLeavesByUserThisYear($id){
+        $builder = $this->db->table('leaves');
+        $builder->select('*');
+        $builder->where('employee', $id);
+        $builder->where('YEAR(startdate)', date("Y"));
+        $builder->where('status', 2);
+
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
+    public function validateLeave($id,$num){
+        $builder = $this->db->table('leaves');
+        $builder->set('status', $num);
+        $builder->where('id', $id);
+
+        $builder->update();
+
+        //return the updated leave
+        $builder = $this->db->table('leaves');
+        $builder->select('*');
+        $builder->where('id', $id);
+        $query = $builder->get();
+        return $query->getResultArray();
+
+    }
+
+
     protected $table = 'leaves';
     protected $primaryKey = 'id';
 

@@ -63,6 +63,14 @@ $routes->get('/', 'Home::index');
 
 //! Magasin (commun)
     $routes->get('/magasin', 'MagasinC::index');
+
+    $routes->get('/magasin/Materiels', 'MagasinC::afficheMateriels');
+    $routes->get('/magasin/Lots', 'MagasinC::afficheLots');
+    $routes->get('/magasin/Reservations', 'MagasinC::afficheReservations');
+
+    $routes->get('/magasin/makeReservation/(:num)', 'MagasinC::makeReservation/$1');
+    $routes->post('magasin/materiels/getMateriels', 'MagasinC::getMateriels');
+
 //!
 
 
@@ -81,6 +89,8 @@ $routes->get('/', 'Home::index');
     $routes->get('/absence/M', 'AbsenceC::absenceManager');
 
     $routes->post('/absence/send', 'AbsenceC::sendAbsence');
+    $routes->post('/absence/accept', 'AbsenceC::validateAbsence');
+    $routes->post('/absence/refuse', 'AbsenceC::RefuseAbsence');
 //!
 
 //! RH - formation 

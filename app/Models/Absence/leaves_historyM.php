@@ -4,8 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class userAbsenceM extends Model{
-
+class leaves_historyM extends Model{
     public function __construct( )
     {
         parent::__construct();
@@ -32,24 +31,15 @@ class userAbsenceM extends Model{
         
     }
 
-    public function getUserByEmail($email)
-    {
-        $builder = $this->db->table('users');
+    public function getAllHistoryByUser($id){
+        $builder = $this->db->table('leaves_history');
         $builder->select('*');
-        $builder->where('email', $email);
+        $builder->where('employee', $id);
         $query = $builder->get();
+
         return $query->getResultArray();
     }
-
-    public function getUsersByManager($id){
-        $builder = $this->db->table('users');
-        $builder->select('*');
-        $builder->where('manager', $id);
-        $query = $builder->get();
-        return $query->getResultArray();
-    }
-
-    protected $table = 'users';
+    protected $table = 'leaves_history';
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -57,10 +47,11 @@ class userAbsenceM extends Model{
     protected $returnType = 'array';
 
     protected $useSoftDeletes = false;
-
-    //protected $allowedFields = [];
+// id titre contenu date updated_at
+    protected $allowedFields = ['*'];
 
 
     protected $useTimestamps = false;
 
 }
+

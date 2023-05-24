@@ -25,4 +25,12 @@
 5/15/2023
 
     I found a way to upload image without uploading it to the server (using base64) and i am trying to make it work with ckeditor but the only problem is the size of the image that can be too big in the databases.
-    
+
+
+    I learned how to use the email class in codeigniter.
+
+    I finisshed the annuaire page.
+
+    I finished the "Getion d'absence" page.
+
+    I learned how to use DataTables in codeigniter as should be and i learned about the dataSrc attribut in ajax datatables.
