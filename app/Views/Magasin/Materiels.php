@@ -3,7 +3,27 @@
 <?= $this->section('pageName') ?> Magasin <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<div class="card">
+<div class="card p-5">
+<h1>Disponibilité du matériel</h1>
+    <hr>
+
+    <p>Horaires d'ouverture du magasin de prêt :</p>
+    <div class="d-flex" >
+        <div>
+            <h3>EMPRUNTS:</h3>
+            <p>Mercredi et jeudi de 16h00 à 18h00
+            (en semaines d'emprunts)</p>
+
+        </div>
+
+        <div>
+            <h3>RESTITUTIONS:</h3>
+            <p>Mercredi et jeudi de 16h00 à 18h00
+            (en semaines d'emprunts)</p>
+        </div>
+    </div>
+
+
     <div class="card-body">
     <select name="category" id="category" class="form-control">
         <option value=""> - Sélectionner une catégorie - </option>
@@ -42,8 +62,9 @@
     </div>
 
 <div class="card">
+   
     <div class="card-body">
-    <table id="materielsTable">
+    <table id="materielsTable" class="table stripe hover">
         <thead>
         <th>#</th>
         <th>Materiel</th>
@@ -72,6 +93,14 @@
     let table = $('#materielsTable').DataTable(
         {
             'processing': true,
+            "columnDefs":[
+                {
+                    "targets": [1],
+                    "render": function(data, type, row, meta){
+                        return '<a href="<?= base_url()?>/magasin/makeReservation/'+row[0]+'">'+data+'</a>';
+                    }
+                }
+            ]
             
         }
     );
@@ -85,15 +114,21 @@
             type: "POST",
             data: {category: value},
             success: function(data){
-                console.log(data);
                 let datax = JSON.parse(data);
+                console.log(datax);
+
                 $.each(datax, function(key, value){
+                    let date_retour = '';
+                    if(value.emprunt.length != 0){
+                        date_retour  = value.emprunt[0]['date_retour'];
+                    }
+
                     table.row.add([
                         value.id_materiel,
-                        value.categorie,
                         value.designation,
-                        value.designation,
-                        value.designation
+                        value.num_serie,
+                        value.dispo,
+                        date_retour,
                     ]).draw(false);
                 })
                 //enable data processing on table

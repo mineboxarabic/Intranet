@@ -36,15 +36,15 @@
 
 
     <div class="d-flex flex-column justify-content-center">
-        <input name="title" type="text" class="form-control" value="<?= $Projet['nom_projet']?>" id="title" hidden>
-        <h2 class="mb-1 align-self-center"><?= $Projet['nom_projet']?></h2>
 
-        <input name="commanditaire" type="text" class="form-control" value="<?= $Projet['commanditaire']?>" id="commanditaire" hidden>
-        <h5 class="mb-1 align-self-center"><?= $Projet['commanditaire']?></h5>
+        <h2 class="mb-1 align-self-center" id="title"><?= $Projet['nom_projet']?></h2>
+
+
+        <h5 class="mb-1 align-self-center" id="commanditaire"><?= $Projet['commanditaire']?></h5>
 
         <div class="d-flex flex-row justify-content-center">
             <p class="text-start" id="date_finX"> Date fin :</p>
-            <input name="date_fin" type="text" class="form-control" value="<?= $Projet['date_fin']?>" id="date_fin_input" hidden>
+
             <p class="text-start" id="date_fin"> <?= $Projet['date_fin']?></p>
         </div>
     </div>
@@ -69,19 +69,20 @@
 
     //on double click on the title text field, it will be replaced by a text area
     //on double click on the commanditaire text field, it will be replaced by a text area
+
+    let Title = new EditableText(document.querySelector('#title'));
+        let Commanditaire = new EditableText(document.querySelector('#commanditaire'));
+        let DateFin = new EditableText(document.querySelector('#date_fin'));
+        let image = new ClickAbleImage(document.querySelector('#thumnail-project'));
+            console.log('xdsaf');
+
     let isEdited = true;
     let saveButton = document.querySelector('#btn-save');
-    let title = document.querySelector('h2');
-    let commanditaire = document.querySelector('h5');
-    let dateFin = document.getElementById('date_fin');
 
-    let inputTitle = document.querySelector('#title');
-    let inputCommanditaire = document.querySelector('#commanditaire');
-    let inputDateFin = document.querySelector('#date_fin_input');
 
     let editor = document.querySelector('#editor');
     
-
+/*
         // _The events 
 
 
@@ -190,7 +191,6 @@
                     });
                 //_
 
-
                 //_ Events for the input Tumnail
                     let thumnail = document.querySelector('#thumnail-project');
                     let inputThumnail = document.querySelector('#file_img');
@@ -237,9 +237,11 @@
 
 
         // _The events
+*/
 
 
-    
+
+
 
     ClassicEditor
         .create( document.querySelector( '#editor' ) )

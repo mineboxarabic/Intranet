@@ -12,8 +12,14 @@
 <!-- App Css-->
 <link href="<?=base_url().'/'?>assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 
+
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
+
+
+
 
 <body data-topbar="light" data-layout="horizontal"></body>
 
@@ -458,10 +464,6 @@
                         </li>
 
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'reservations' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Rervations</span>
-                        </a>
 
                         
                         <li class="nav-item dropdown">
@@ -484,15 +486,6 @@
                             <i class="bx bx-world me-2"></i><span key="t-dashboards">Aide</span>
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'outils' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Outils</span>
-                        </a>
-
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'plateforme' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Plateforme</span>
-                        </a>
 
 
 
@@ -652,6 +645,97 @@
 
         }
     }
+
+    class ClickAbleImage {
+            constructor(image) {
+                this.image = image;
+                this.input = document.createElement('input');
+                this.input.type = 'file';
+                this.input.name = this.image.id;
+                this.input.style.display = 'none';
+                this.input.className = 'form-control';
+                this.image.parentNode.insertBefore(this.input, this.image.nextSibling);
+
+                this.image.addEventListener('click', () => {
+                    this.input.click();
+                });
+
+                this.input.addEventListener('change', () => {
+                    this.updateValue(this.input.files[0]);
+                });
+            }
+
+            updateValue(value) {
+                this.image.src = URL.createObjectURL(value);
+            }
+
+
+        }
+
+    class EditableText {
+            constructor(element) {
+                this.element = element;
+                this.input = document.createElement('input');
+                this.input.name = this.element.id;
+                this.input.value = element.innerHTML;
+                this.input.style.display = 'none';
+                this.input.className = 'form-control';
+
+
+                //_ Styling the input to look like the element
+                this.input.style.transition = 'all .3s ease';
+                this.input.style.width = this.element.offsetWidth + 'px';
+                this.input.style.height = this.element.offsetHeight + 'px';
+                this.input.style.fontSize = window.getComputedStyle(this.element).fontSize;
+                this.input.style.fontFamily = window.getComputedStyle(this.element).fontFamily;
+                this.input.style.padding = window.getComputedStyle(this.element).padding;
+                // this.input.style.border = 'none';
+
+                //this.input.style.outline = 'none';
+                //this.input.style.background = 'none';
+                this.input.style.color = window.getComputedStyle(this.element).color;
+                this.input.style.textAlign = window.getComputedStyle(this.element).textAlign;
+                this.input.style.fontWeight = window.getComputedStyle(this.element).fontWeight;
+                this.input.style.fontStyle = window.getComputedStyle(this.element).fontStyle;
+                //this.input.style.textDecoration = window.getComputedStyle(this.element).textDecoration;
+
+                //_
+
+                this.element.parentNode.insertBefore(this.input, this.element.nextSibling);
+
+                this.element.addEventListener('dblclick', () => {
+                    this.element.style.display = 'none';
+                    this.input.style.display = 'block';
+                    this.input.focus();
+                });
+
+                this.input.addEventListener('blur', () => {
+                    this.element.style.display = 'block';
+                    this.input.style.display = 'none';
+                    this.updateValue(this.input.value);
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        this.element.style.display = 'block';
+                        this.input.style.display = 'none';
+                        this.updateValue(this.input.value);
+                    }
+                });
+
+
+            }
+
+            relaceTextWithInput() {
+
+            }
+
+
+            updateValue(value) {
+                this.element.innerHTML = value;
+            }
+        }
+
     </script>
     <!--<script src="assets/libs/jquery/jquery.min.js"></script>-->
     <!-- <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script> -->
@@ -670,6 +754,7 @@
         integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous">
     </script>
 
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 

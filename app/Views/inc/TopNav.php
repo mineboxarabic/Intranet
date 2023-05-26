@@ -447,8 +447,8 @@
                             <i class="bx bx-world me-2"></i><span key="t-dashboards">Aide</span> 
                         </a>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'outils' ?>" id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Outils</span> 
+                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'outilss' ?>" id="topnav-dashboard" role="button">
+                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Outilss</span> 
                         </a>
                         
                         <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'plateforme' ?>" id="topnav-dashboard" role="button">

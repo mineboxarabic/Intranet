@@ -18,6 +18,7 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
+$routes->setAutoRoute(true);
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
 // where controller filters or CSRF protection are bypassed.
 // If you don't want to define all routes, please use the Auto Routing (Improved).
@@ -32,7 +33,7 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+//$routes->get('/', 'Home::index');
 
 /**
  * -//_ Dashboard (commun)
@@ -57,9 +58,7 @@ $routes->get('/', 'Home::index');
     $routes->get('/dashboard', 'Home::Dashboard');
 //!
 
-//! Réservations jet d’encre (commun)
-    $routes->get('/reservations', 'ReservationsC::index');
-//!
+
 
 //! Magasin (commun)
     $routes->get('/magasin', 'MagasinC::index');
@@ -69,20 +68,35 @@ $routes->get('/', 'Home::index');
     $routes->get('/magasin/Reservations', 'MagasinC::afficheReservations');
 
     $routes->get('/magasin/makeReservation/(:num)', 'MagasinC::makeReservation/$1');
+    $routes->get('/magasin/makeReservationLots/(:num)', 'MagasinC::makeReservationLots/$1');
+
+
+
+    $routes->post('/magasin/createReservation', 'MagasinC::createReservation');
+    $routes->post('/magasin/createReservationLot', 'MagasinC::createReservationLot');
+
+
+
+
+
+    $routes->post('/magasin/getReservations/(:num)', 'MagasinC::getReservations/$1');
+    $routes->get('/magasin/getReservations/(:num)', 'MagasinC::getReservations/$1');
+
+    $routes->post('/magasin/getReservationsLot/(:num)', 'MagasinC::getReservationsLot/$1');
+    $routes->get('/magasin/getReservationsLot/(:num)', 'MagasinC::getReservationsLot/$1');
+
+
+
+
     $routes->post('magasin/materiels/getMateriels', 'MagasinC::getMateriels');
 
+    $routes->post('magasin/Lots/getLots', 'MagasinC::getLots');
+
+
 //!
 
 
 
-
-//! Outils (ex ressources) (commun)
-    $routes->get('/outils', 'OutilsC::index');
-//!
-
-//! plateforme ENSP (commun)
-    $routes->get('/plateforme', 'PlateformeC::index');
-//!
 
 //! Gestion d’absence (uniquement personnel)
     $routes->get('/absence', 'AbsenceC::index');
@@ -93,9 +107,6 @@ $routes->get('/', 'Home::index');
     $routes->post('/absence/refuse', 'AbsenceC::RefuseAbsence');
 //!
 
-//! RH - formation 
-    $routes->get('/RH/actualite', 'RHC::index');
-//!
 
 //! Annuaire
     $routes->get('/annuaire', 'AnnuaireC::index');

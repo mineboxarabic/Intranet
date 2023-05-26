@@ -130,34 +130,6 @@ class ProjetC extends BaseController
             echo "the image is set" . '<br>';
             $file_image = $_FILES['file_image'];
 
-                /*//_ IMAGE
-                    $name = $file_image['name'];
-                    $tmp_name = $file_image['tmp_name'];
-                    $error = $file_image['error'];
-                    $size = $file_image['size'];
-                    $type = $file_image['type'];
-        
-                    $ext = explode('.', $name);
-                    $actualExt = strtolower(end($ext));
-                    
-                    if($actualExt == 'jpg' || $actualExt == 'jpeg' || $actualExt == 'png'){
-                        if($error === 0){
-                            if($size < 1000000){
-                                $randomLetter = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'), 0, 1);
-                                $image =  $randomLetter . '_' .$name;
-                                $destination = 'Images/Projets/'.$image;
-                                move_uploaded_file($tmp_name, $destination);
-                            }else{
-                            http_response_code(400);
-                                die("Cette image est trop grande");
-                            }
-                        }
-                    }
-                    else{
-                        http_response_code(400);
-                    die(" Vous pouvez que des images de type jpg, jpeg ou png");
-                    }
-                //_IMAGE*/
 
                 include (APPPATH . 'Classes/Functions.php');
                 $functions = new Functions();
