@@ -19,4 +19,8 @@ protected $allowedFields = ['titre', 'contenu', 'date'];
 
     protected $useTimestamps = false;
 
+    public function updatePage($id, $data){
+        $this->update($id, $data);
+    }
+
 }

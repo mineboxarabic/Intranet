@@ -128,15 +128,36 @@ $routes->setAutoRoute(true);
 
 //!
 
+//! Projets
+$routes->get('/ESs', 'ESC::index');
+$routes->get('/ESs/consulte/(:any)', 'ESC::consulteES/$1');
+
+
+$routes->get('/ESs/M', 'ESC::afficheESsM');
+$routes->get('/ESs/M/consulte/(:any)', 'ESC::consulteESM/$1');
+$routes->get('/ESs/M/delete/(:any)', 'ESC::deleteESM/$1');
+$routes->post('/ESs/M/update/(:any)', 'ESC::updateESM/$1');
+$routes->get('/ESs/M/create', 'ESC::createESM');
+$routes->post('/ESs/M/add', 'ESC::addESM');
+
+
+//!
+
 //!Pages
     //$routes->get('/pages/R/(:any)', 'PagesC::showPage/$1');
     //$routes->get('/pages/M/(:any)', 'PagesC::consultePage/$1');
+
+  
     $pages = new PagesM();
     $pages = $pages->findAll();
     foreach ($pages as $page) {
+
+        
+
         $routes->get('/'.$page['lable'], 'PagesC::showPage/'.$page['lable']);
         $routes->get('/'.$page['lable'].'/M', 'PagesC::consultePage/'.$page['lable']);
         $routes->POST('/'.$page['lable'].'/upload', 'PagesC::uploadImages/'.$page['id']);
+        $routes->POST('/'.$page['lable'].'/update/(:num)', 'PagesC::updatePage/'.$page['id']);
     }
 //!
 

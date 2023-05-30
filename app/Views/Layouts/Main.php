@@ -356,189 +356,147 @@
                 <div class="collapse navbar-collapse" id="topnav-menu-content">
                     <ul class="navbar-nav">
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'dashboard' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-home-circle me-2"></i><span key="t-dashboards">Tableau de bord</span>
-                        </a>
 
-
-
-
-
-                        <!--<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="layouts-hori-topbar-light.html#"
-                                id="topnav-layout" role="button">
-                                <i class="bx bx-layout me-2"></i><span key="t-layouts">Vie de l'école</span>
-                                <div class="arrow-down"></div>
+                        <!--//!Tableau de bord-->
+                            <a class="nav-link" href="<?= base_url().'dashboard' ?>"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="bx bx-home-circle me-2"></i><span key="t-dashboards">Tableau de bord</span>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-layout">
+                        <!--//!Tableau de bord-->
 
-                                <a href="annuaire.php" class="dropdown-item" key="t-horizontal">Listes</a>
-
-                                <div class="dropdown">
-                                    <a class="dropdown-item dropdown-toggle arrow-none"
-                                        href="layouts-hori-topbar-light.html#" id="topnav-layout-verti" role="button">
-                                        <span key="t-vertical">Réservation d'espace</span>
-                                        <div class="arrow-down"></div>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="topnav-layout-verti">
-                                        <a href="layouts-light-sidebar.html" class="dropdown-item"
-                                            key="t-light-sidebar">Light Sidebar</a>
-                                        <a href="layouts-compact-sidebar.html" class="dropdown-item"
-                                            key="t-compact-sidebar">Compact Sidebar</a>
-                                        <a href="layouts-icon-sidebar.html" class="dropdown-item"
-                                            key="t-icon-sidebar">Icon Sidebar</a>
-                                        <a href="layouts-boxed.html" class="dropdown-item" key="t-boxed-width">Boxed
-                                            Width</a>
-                                        <a href="layouts-preloader.html" class="dropdown-item"
-                                            key="t-preloader">Preloader</a>
-                                        <a href="layouts-colored-sidebar.html" class="dropdown-item"
-                                            key="t-colored-sidebar">Colored Sidebar</a>
-                                        <a href="layouts-scrollable.html" class="dropdown-item"
-                                            key="t-scrollable">Scrollable</a>
-                                    </div>
-                                </div>
-
-                                <div class="dropdown">
-                                    <a class="dropdown-item dropdown-toggle arrow-none"
-                                        href="layouts-hori-topbar-light.html#" id="topnav-layout-hori" role="button">
-                                        <span key="t-horizontal">Horizontal</span>
-                                        <div class="arrow-down"></div>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="topnav-layout-hori">
-                                        <a href="layouts-horizontal.html" class="dropdown-item"
-                                            key="t-horizontal">Horizontal</a>
-                                        <a href="layouts-hori-topbar-light.html" class="dropdown-item"
-                                            key="t-topbar-light">Topbar light</a>
-                                        <a href="layouts-hori-boxed-width.html" class="dropdown-item"
-                                            key="t-boxed-width">Boxed width</a>
-                                        <a href="layouts-hori-preloader.html" class="dropdown-item"
-                                            key="t-preloader">Preloader</a>
-                                        <a href="layouts-hori-colored-header.html" class="dropdown-item"
-                                            key="t-colored-topbar">Colored Header</a>
-                                        <a href="layouts-hori-scrollable.html" class="dropdown-item"
-                                            key="t-scrollable">Scrollable</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="layouts-hori-topbar-light.html#"
-                                id="topnav-layout" role="button">
-                                <i class="bx bx-layout me-2"></i><span key="t-layouts">Ressources</span>
-                                <div class="arrow-down"></div>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="topnav-layout">
-                                <a href="wifi.php" class="dropdown-item" key="t-horizontal">Réseau WIFI</a>
-                                <a href="plateformes.php" class="dropdown-item" key="t-horizontal">Plateformes</a>
-                                <a href="abonnements.php" class="dropdown-item" key="t-horizontal">Abonnements
-                                    agendas</a>
-                                <a href="layouts-horizontal.html" class="dropdown-item" key="t-horizontal">Signature
-                                    mail</a>
-                                <a href="documents.php" class="dropdown-item" key="t-horizontal">Documents</a>
-
-
-
-                            </div>
-                        </li>-->
-
-
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'projets' ?>"
-                                id="topnav-dashboard" role="button">
-                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Appels à projet</span>
-                            </a>
-
-
-                            <div class="dropdown-menu" aria-labelledby="topnav-layout">
-                                <a href="<?= base_url().'projets/M' ?>" class="dropdown-item" key="t-horizontal">Projet
-                                    Manager</a>
-
-
-
-                            </div>
-
-
-                        </li>
-
-
-
+                        <!--//_Student-->
                         
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'magasin/Materiels' ?>"
-                                id="topnav-dashboard" role="button">
-                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Materiels</span>
-                            </a>
+                        <?php if(session()->get('userType') == 'student' || (session()->get('current_user')['id'] == 531 || session()->get('current_user')['id'] == 22)): ?>
 
-                            <div class="dropdown-menu" aria-labelledby="topnav-layout">
-                                <a href="<?= base_url().'magasin/Lots' ?>" class="dropdown-item" key="t-horizontal">Lots</a>
-                                <a href="<?= base_url().'magasin/Reservations' ?>" class="dropdown-item" key="t-horizontal">Mes reservations</a>
-                            </div>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'projets' ?>"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="bx bx-world me-2"></i><span key="t-dashboards">Appels à projet</span>
+                                </a>
 
+                                    <div class="dropdown-menu" aria-labelledby="topnav-layout">
+                                    <a href="<?= base_url().'projets/M' ?>" class="dropdown-item" key="t-horizontal">Projet
+                                        Manager</a>
 
+                                </div>
 
-                        </li>
-
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'aide' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Aide</span>
-                        </a>
+                            </li>
+                            <?php endif; ?>
 
 
 
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'absence' ?>"
-                                id="topnav-dashboard" role="button">
-                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Gestion d'absece</span>
-                            </a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'ESs' ?>"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="bx bx-world me-2"></i><span key="t-dashboards">Emploi / Stage</span>
+                                </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="topnav-layout">
+                                    <a href="<?= base_url().'ESs/M' ?>" class="dropdown-item" key="t-horizontal">ES
+                                        Manager</a>
+
+                                </div>
+
+                            </li>
+                        <!--//_Student-->
+
+                        <!--//_Personnel-->
+                            <?php if(session()->get('userType') == 'personnel'): ?>
 
 
-                            <div class="dropdown-menu" aria-labelledby="topnav-layout">
-                                <a href="<?= base_url().'absence/M' ?>" class="dropdown-item" key="t-horizontal">Gestion d'absece
-                                    Manager</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="bx bx-world me-2"></i><span key="t-dashboards">RH - Formation</span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="topnav-layout">
+                                    <a href="<?= base_url().'absence' ?>" class="dropdown-item" key="t-horizontal">Gestion d'absence</a>
+                                    <a href="<?= base_url().'formation' ?>" class="dropdown-item" key="t-horizontal">Formation</a>
+                                    <a href="<?= base_url().'instance' ?>" class="dropdown-item" key="t-horizontal">instance</a>
+
+                                </div>
 
 
 
-                            </div>
+                            </li>
+
+                            <?php endif; ?>
+                        <!--//_Personnel-->
+                
+                        <!--//! Outills -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="bx bx-world me-2"></i><span key="t-dashboards">Outils</span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="topnav-layout">
+                                    <a href="<?= base_url().'informatique' ?>" class="dropdown-item" key="t-horizontal">Informatique</a>
+                                    <a href="<?= base_url().'communication' ?>" class="dropdown-item" key="t-horizontal">Communication</a>
+                                    <a href="<?= base_url().'LM' ?>" class="dropdown-item" key="t-horizontal">Logiciels métiers</a>
+                                    <a href="<?= base_url().'juridique' ?>" class="dropdown-item" key="t-horizontal">Juridique</a>
+                                    <a href="<?= base_url().'platform' ?>" class="dropdown-item" key="t-horizontal">Plateformes</a>
+                                </div>
 
 
-                        </li>
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'RH/actualite' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">RH - Formation</span>
-                        </a>
+                            </li>
+                        <!--//! Outills -->
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'annuaire' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Annuaire</span>
-                        </a>
+                        <!--//! Magasin -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="bx bx-world me-2"></i><span key="t-dashboards">Magasin</span>
+                                </a>
 
-                        <?php 
-                            /*//Use the model 
-                            $model = new \App\Models\PagesM();
-                            $pages = $model->findAll();
-                            foreach($pages as $page){
-                                echo '<a class="nav-link dropdown-toggle arrow-none" href="'.base_url().'pages/R/'.$page['id'].'" id="topnav-dashboard" role="button">
-                                <i class="bx bx-world me-2"></i><span key="t-dashboards">'.$page['titre'].'</span>
-                            </a>';
-                            }*/
-
+                                <div class="dropdown-menu" aria-labelledby="topnav-layout">
+                                    <a href="<?= base_url().'magasin/Lots' ?>" class="dropdown-item" key="t-horizontal">Lots</a>
+                                    <a href="<?= base_url().'magasin/Reservations' ?>" class="dropdown-item" key="t-horizontal">Mes reservations</a>
+                                    <a href="<?= base_url().'magasin/Materiels' ?>" class="dropdown-item" key="t-horizontal">Materiels</a>
                             
-                        ?>
+                                </div>
+
+                            </li>
+                        <!--//! Magasin -->
+
+                        <!--//! Imprimante -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="#"
+                                    id="topnav-dashboard" role="button">
+                                    <i class="bx bx-world me-2"></i><span key="t-dashboards">Imprimantes</span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="topnav-layout"> 
+                                    <a href="<?= base_url().'jetencre' ?>" class="dropdown-item" key="t-horizontal">Jet d'encre mat</a>
+                                    <a href="<?= base_url().'jetbrillant' ?>" class="dropdown-item" key="t-horizontal">Jet d'encre brillant</a>
+                                    <a href="<?= base_url().'UV' ?>" class="dropdown-item" key="t-horizontal">UV</a>
+                            
+                                </div>
+
+                            </li>
+                        <!--//! Imprimante -->
+
+                        <!--//! aide -->
+
+                            <a class="nav-link" href="<?= base_url().'aide' ?>"
+                                id="topnav-dashboard" role="button">
+                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Discrimination/harcelements/handicap</span>
+                            </a>
+                        <!--//! aide -->
 
 
 
 
+                        <!--//! annuaire -->
 
-                        <a class="nav-link dropdown-toggle arrow-none" href="<?= base_url().'aide' ?>"
-                            id="topnav-dashboard" role="button">
-                            <i class="bx bx-world me-2"></i><span key="t-dashboards">Discrimination/harcèlement</span>
-                        </a>
-
+                            <a class="nav-link" href="<?= base_url().'annuaire' ?>"
+                                id="topnav-dashboard" role="button">
+                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Annuaire</span>
+                            </a>
+                        <!--//! annuaire -->
 
 
 

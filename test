@@ -27,12 +27,31 @@
     I found a way to upload image without uploading it to the server (using base64) and i am trying to make it work with ckeditor but the only problem is the size of the image that can be too big in the databases.
 
 
+
+
     I learned how to use the email class in codeigniter.
 
     I finisshed the annuaire page.
 
     I finished the "Getion d'absence" page.
 
+
+
     I learned how to use DataTables in codeigniter as should be and i learned about the dataSrc attribut in ajax datatables.
 
+    
+
     I have worked with multiple date calenders for the first time and it's pretty cool and i learned how to use the datepicker in codeigniter.
+    
+    I created new class to do my job for me such as the EditableText class and the EditableImage class.
+
+    I cleaned the code I wend from 500 lines to 150 lines
+
+    We gave every role his own link and header and footer.
+
+
+    //======================
+
+    I cleaned up the code
+
+    I gave every role his own header and footer

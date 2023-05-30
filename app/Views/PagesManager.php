@@ -21,28 +21,20 @@
                 margin: 20px auto;
             }
         </style>
-        <form action="/pages/update" method="post">
-            <input type="hidden" name="id" value="<?= $page['id'] ?>">
-            <input type="hidden" name="titre" value="<?= $page['titre'] ?>">
-        
-        <div id="container">
-            <tesxtarea id="editor">
-                <?= $page['contenu'] ?>
-            </tesxtarea>
-        </div>
+        <form id="formx" action="<?=base_url() . 'PagesC/updatePage/'. $page['id']?>" method="post" enctype="multipart/form-data"> 
+            <div id="container" >
+                <textarea name="editor" id="editor">
+                    <?= $page['contenu'] ?>
+                </textarea>
+
+            </div>
+            <button class="btn btn-success" type="sumbit">Save</button>
         </form>
-        <!--
-            The "super-build" of CKEditor 5 served via CDN contains a large set of plugins and multiple editor types.
-            See https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/quick-start.html#running-a-full-featured-editor-from-cdn
-        -->
+
         <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/super-build/ckeditor.js"></script>
-        <!--
-            Uncomment to load the Spanish translation
-            <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/super-build/translations/es.js"></script>
-        -->
+
         <script>
-            // This sample still does not showcase all CKEditor 5 features (!)
-            // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
+        
             CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
                 // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
                 toolbar: {
@@ -190,10 +182,34 @@
                 ]
             });
         </script>
+
+
+            <script type="module">
+              /*  let editor =document.querySelector('#editor');
+                $('#form').on('submit', function(e) {
+                    e.preventDefault();
+                    var data = new FormData(this);
+                    let content = editor;
+                    $.ajax({
+                        url: ,
+                        type: 'POST',
+                        data: {
+                            data: data,
+                            editor: content
+                        },
+                        processData: false,
+                        contentType: false,
+                        success: function(res) {
+                            console.log(res);
+                            //location.reload();
+                        }
+                    });
+                });*/
+            </script>
         </body>
 
 
 
-        <button class="btn btn-success" onclick="save()">Save</button>
+
 
 <?= $this->endSection() ?>

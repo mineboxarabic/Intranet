@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\UserModel;
-
+use Google_Service;
 
 class LoginC extends BaseController{
 
@@ -14,6 +14,10 @@ class LoginC extends BaseController{
         $this->googleClient->setRedirectUri('http://localhost:8080/login_redir');
         $this->googleClient->addScope('email');
         $this->googleClient->addScope('profile');
+        $this->googleClient->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
+        $this->googleClient->addScope(Google_Service_Drive::DRIVE);
+
+
 
     }
 
@@ -37,10 +41,14 @@ class LoginC extends BaseController{
 
         if(!isset($token['error'])){
          $this->googleClient->setAccessToken($token['access_token']);
+         $drive = new \Google_Service_Drive($this->googleClient);
+
+         session()->set('drive', $drive);
+         
            session()->set('Access_token', $token['access_token']);
             $googleService = new \Google_Service_Oauth2($this->googleClient);
             $data = $googleService->userinfo->get();
-
+            
 
 
             $userFirstName = $data['givenName'];
@@ -70,6 +78,7 @@ class LoginC extends BaseController{
             $user = $userModel->where('email', $userEmail)->first();
             session()->set('current_user', $user);
             $_SESSION['current_user'] = $user;
+
             if($user){
 
                 $userType = $user['rang'] == 0 ? "student" : "personnel";

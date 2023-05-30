@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/Main') ?>
 //TODO: Change the page name
-<?= $this->section('pageName') ?> Projet Details <?= $this->endSection() ?>
+<?= $this->section('pageName') ?> ES Details <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 
@@ -16,32 +16,32 @@
 
 <?php 
 if(session()->get('current_user')['id'] == 531 || session()->get('current_user')['id'] == 264){
-    echo '<a href="' . base_url() . 'projets/M/consulte/' . $Projet['id_projet'] . '" class="btn btn-primary">Modifier</a>';
+    echo '<a href="' . base_url() . 'ESs/M/consulte/' . $ES['id_ES'] . '" class="btn btn-primary">Modifier</a>';
 }
 
 ?>
 
 <img id="thumnail-project" class="img-thumnail" src="<?php
-    $img = base_url() . 'Images/Projets/' . $Projet['file_img'];
-    if (file_exists('Images/Projets/' . $Projet['file_img'])) {
+    $img = base_url() . 'Images/ESs/' . $ES['file_img'];
+    if (file_exists('Images/ESs/' . $ES['file_img'])) {
         echo $img;
     } else
-        echo base_url() . 'Images/Projets/Project_place_holder.png'?>"/>\
+        echo base_url() . 'Images/ESs/Project_place_holder.png'?>"/>\
 <div class="d-flex flex-column justify-content-center">
-    <h2 class="mb-1 align-self-center"><?= $Projet['nom_projet']?></h2>
-    <h5 class="mb-1 align-self-center"><?= $Projet['commanditaire']?></h5>
+    <h2 class="mb-1 align-self-center"><?= $ES['nom_ES']?></h2>
+    <h5 class="mb-1 align-self-center"><?= $ES['commanditaire']?></h5>
 </div>
 
 <div id="descriptif">
 <?php 
-    echo $Projet['descriptif'];
+    echo $ES['descriptif'];
 ?>
 </div>
 
 
-<a href="<?= base_url() . 'PDF/Projets/' . $Projet['file'] ?>" class="btn btn-primary">Télécharger le document</a>
+<a href="<?= base_url() . 'PDF/ESs/' . $ES['file'] ?>" class="btn btn-primary">Télécharger le document</a>
 
-<p class="text-start p-3">Date fin : <?= $Projet['date_fin']?></p>
+<p class="text-start p-3">Date fin : <?= $ES['date_fin']?></p>
 
 
 

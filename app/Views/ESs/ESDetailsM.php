@@ -1,6 +1,6 @@
 <?= $this->extend('layouts/Main') ?>
 //TODO: Change the page name
-<?= $this->section('pageName') ?> Projet Details <?= $this->endSection() ?>
+<?= $this->section('pageName') ?> ES Details <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 
@@ -26,31 +26,31 @@
 <form id="form" method="POST" enctype="multipart/form-data">
         
         <img id="file_image" class="img-thumnail" src="<?php
-            $img = $Projet['file_img'];
-            if (file_exists('Images/Projets/'. $img)) {
-                echo base_url() .'Images/Projets/'.$img;
+            $img = $ES['file_img'];
+            if (file_exists('Images/ESs/'. $img)) {
+                echo base_url() .'Images/ESs/'.$img;
             } else
-                echo base_url() . 'Images/Projets/Project_place_holder.png'?>
+                echo base_url() . 'Images/ESs/Project_place_holder.png'?>
                 "/>
 
 
 
     <div class="d-flex flex-column justify-content-center">
 
-        <h2 class="mb-1 align-self-center" id="title"><?= $Projet['nom_projet']?></h2>
+        <h2 class="mb-1 align-self-center" id="title"><?= $ES['nom_ES']?></h2>
 
 
-        <h5 class="mb-1 align-self-center" id="commanditaire"><?= $Projet['commanditaire']?></h5>
+        <h5 class="mb-1 align-self-center" id="commanditaire"><?= $ES['commanditaire']?></h5>
 
         <div class="d-flex flex-row justify-content-center">
             <p class="text-start" id="date_finX"> Date fin :</p>
 
-            <p class="text-start" id="date_fin"> <?= $Projet['date_fin']?></p>
+            <p class="text-start" id="date_fin"> <?= $ES['date_fin']?></p>
         </div>
     </div>
 
     <textarea name="editor" id="editor">
-    <?= $Projet['descriptif']?>
+    <?= $ES['descriptif']?>
     </textarea>
 
 
@@ -75,7 +75,7 @@
         let Commanditaire = new EditableText(document.querySelector('#commanditaire'));
         let DateFin = new EditableText(document.querySelector('#date_fin'));
         let image = new ClickAbleImage(document.querySelector('#file_image'));
-            console.log('xdsaf');
+
 
     let isEdited = true;
     let saveButton = document.querySelector('#btn-save');
@@ -102,10 +102,10 @@
 
                     });
 
-                    if("<?= $Projet['file'] ?>" == ""){
+                    if("<?= $ES['file'] ?>" == ""){
                         console.log("empty");
                     }else{
-                        $('#upload_pdf').text("<?= $Projet['file'] ?>");
+                        $('#upload_pdf').text("<?= $ES['file'] ?>");
                     }
                 //_ 
 
@@ -138,7 +138,7 @@
 $('#form').on('submit',function(e){
     e.preventDefault();
     $.ajax({
-        url: "<?= base_url() . 'projets/M/update/'.$Projet['id_projet']?>",
+        url: "<?= base_url() . 'ESs/M/update/'.$ES['id_ES']?>",
         type: 'POST',
         data: new FormData(this),
         contentType: false,
@@ -149,22 +149,25 @@ $('#form').on('submit',function(e){
             if(data == "success"){
                 isEdited = false;
                 saveButton.disabled = isEdited;
-                //alert("Projet modifié avec succès");
-                $.notify("Projet modifié avec succès", "success");
+                //alert("ES modifié avec succès");
+
+                $.notify("ES modifié avec succès", "success");
 
 
+
+                location.reload();
 
             }else{
-               // alert("Erreur lors de la modification du projet");
+               // alert("Erreur lors de la modification du ES");
             console.log(data);
-                $.notify("Erreur lors de la modification du projet", "error");
+                $.notify("Erreur lors de la modification du ES", "error");
 
 
             }
         },
         error: function(data){
             console.log(data);
-            //alert("Erreur lors de la modification du projet");
+            //alert("Erreur lors de la modification du ES");
             $.notify(data.responseText, "error");
         }
     });

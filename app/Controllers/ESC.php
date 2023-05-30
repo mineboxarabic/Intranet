@@ -5,47 +5,47 @@ use \Functions;
 //inculde Functions class from the app/controllers/Functions.php
 
 
-class ProjetC extends BaseController
+class ESC extends BaseController
 {
-    private $Projets = null;
-//Attributes in DB id_projet nom_projet commanditaire annee nbr_etu referent descriptif condition date_fin url file file_img
+    private $ESs = null;
+//Attributes in DB id_ES nom_ES commanditaire annee nbr_etu referent descriptif condition date_fin url file file_img
     public function __construct()
     {
-        $this->Projets = new \App\Models\ProjetM();
+        $this->ESs = new \App\Models\ESM();
     }
     
     public function index()
     {
         $data = array(
-            'pageName' => 'Projets',
-            'Projets' => $this->Projets->findAll()
+            'pageName' => 'ESs',
+            'ESs' => $this->ESs->findAll()
         
         );
-        return view('Projets/Projets', $data);
+        return view('ESs/ESs', $data);
     }
-    private function getProjetById($id){
-        $projet = $this->Projets->where('id_projet', $id)->first();
-        return $projet;
+    private function getESById($id){
+        $ES = $this->ESs->where('id_ES', $id)->first();
+        return $ES;
     }
-    public function consulteProjet($idProjet){
-        $projet = $this->getProjetById($idProjet);
+    public function consulteES($idES){
+        $ES = $this->getESById($idES);
         $data = array(
-            'pageName' => 'Projet Details of '.$projet['nom_projet'].'',
-            'Projet' => $projet
+            'pageName' => 'ES Details of '.$ES['nom_ES'].'',
+            'ES' => $ES
         );
-        return view('Projets/ProjetDetails', $data);
+        return view('ESs/ESDetails', $data);
     }
 
 
-    public function consulteProjetM($idProjet){
-        //projetDetailsM.php
+    public function consulteESM($idES){
+        //ESDetailsM.php
 
-        $projet = $this->getProjetById($idProjet);
+        $ES = $this->getESById($idES);
         $data = array(
-            'pageName' => 'Projet Details of '.$projet['nom_projet'].'',
-            'Projet' => $projet
+            'pageName' => 'ES Details of '.$ES['nom_ES'].'',
+            'ES' => $ES
         );
-        return view('Projets/ProjetDetailsM', $data);
+        return view('ESs/ESDetailsM', $data);
     }
 
     private function in_array($needle, $haystack){
@@ -56,9 +56,9 @@ class ProjetC extends BaseController
         }
         return false;
     }
-    public function updateProjetM($idProjet){
+    public function updateESM($idES){
 
-        $projet = $this->Projets->where('id_projet', $idProjet)->first();
+        $ES = $this->ESs->where('id_ES', $idES)->first();
 
 
         helper(['form', 'url']);
@@ -77,11 +77,11 @@ class ProjetC extends BaseController
             }
             
             $newName = $imageF->getRandomName();
-            $imageF->move('Images/projets', $newName);
+            $imageF->move('Images/ESs', $newName);
             $image = $newName;
         }else{
                 
-            $image = $projet['file_img'];
+            $image = $ES['file_img'];
             //check if file is empty
 
         }
@@ -97,7 +97,7 @@ class ProjetC extends BaseController
             $pdfF->move('PDF', $newName);
             $pdf = $newName;
         }else{
-            $pdf = $projet['file'];
+            $pdf = $ES['file'];
         }
 
 
@@ -109,18 +109,21 @@ class ProjetC extends BaseController
         $date_fin = $_POST['date_fin'];
 
 
-        $projet = $this->Projets->where('id_projet', $idProjet)->first();
+        $ES = $this->ESs->where('id_ES', $idES)->first();
 
-        $projet['nom_projet'] = $title;
-        $projet['commanditaire'] = $commanditaire;
-        $projet['date_fin'] = $date_fin;
-        $projet['descriptif'] = $editor;
-        $projet['file_img'] = $image;
-        $projet['file'] = $pdf;
-        $this->Projets->save($projet);
+        $ES['nom_ES'] = $title;
+        $ES['commanditaire'] = $commanditaire;
+        $ES['date_fin'] = $date_fin;
+        $ES['descriptif'] = $editor;
+        $ES['file_img'] = $image;
+        $ES['file'] = $pdf;
+        //$this->ESs->save($ES);
+        $builder = $this->ESs->builder();
+        $builder->where('id_ES', $idES);
+        $builder->update($ES);
 
         echo "success";
-        //return redirect()->to(base_url().'projets/M/consulte/'.$idProjet);
+        //return redirect()->to(base_url().'ESs/M/consulte/'.$idES);
         
 
 
@@ -129,17 +132,17 @@ class ProjetC extends BaseController
 
 
     }
-    public function afficheProjetsM(){
-        $Projets = $this->Projets->findAll();
+    public function afficheESsM(){
+        $ESs = $this->ESs->findAll();
 
         $data[] = array();
 
-        foreach($Projets as $projet){
+        foreach($ESs as $ES){
             $data[] = array(
-                'id_projet' => $projet['id_projet'],
-                'nom_projet' => $projet['nom_projet'],
-                'commanditaire' => $projet['commanditaire'],
-                'date_fin' => $projet['date_fin'],
+                'id_ES' => $ES['id_ES'],
+                'nom_ES' => $ES['nom_ES'],
+                'commanditaire' => $ES['commanditaire'],
+                'date_fin' => $ES['date_fin'],
                 'actions' => 1
             );
 
@@ -147,20 +150,20 @@ class ProjetC extends BaseController
         }
 
         $data = array(
-            'pageName' => 'Projets Manager',
-            'Projets' => $data
+            'pageName' => 'ESs Manager',
+            'ESs' => $data
         );
-        return view('Projets/ProjetsManager', $data);
+        return view('ESs/ESsManager', $data);
     }
-    public function deleteProjetM($id){
+    public function deleteESM($id){
 
-      $this->Projets->where('id_projet', $id)->delete();
+      $this->ESs->where('id_ES', $id)->delete();
 
-        return redirect()->to(base_url().'projets/M');
+        return redirect()->to(base_url().'ESs/M');
 
     }
 
-    public function addProjetM(){
+    public function addESM(){
         $file_img = null;
         if(isset($_FILES['file_img']) && $_FILES['file_img']['error'] == 0){
             $file_img = $_FILES['file_img'];
@@ -178,7 +181,7 @@ class ProjetC extends BaseController
                         if($size < 1000000){
                             $randomLetter = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 1);
                             $image = $name .'_'. $randomLetter . '.' . $actualExt;
-                            $destination = 'Images/Projets/'.$image;
+                            $destination = 'Images/ESs/'.$image;
                             move_uploaded_file($tmp_name, $destination);
                         }else{
                             die("L'image est trop grande");
@@ -209,7 +212,7 @@ class ProjetC extends BaseController
                 if($size < 1000000){
                     $randomLetter = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 1);
                     $pdf = $name .'_'. $randomLetter . '.pdf';
-                    $destination = 'PDF/Projets/'.$pdf;
+                    $destination = 'PDF/ESs/'.$pdf;
                     move_uploaded_file($tmp_name, $destination);
                 }else{
                     die("Le fichier PDF est trop grand");
@@ -235,8 +238,8 @@ class ProjetC extends BaseController
         
 
 
-        $projet = array(
-            'nom_projet' => $title,
+        $ES = array(
+            'nom_ES' => $title,
             'commanditaire' => $commanditaire,
             'date_fin' => $date_fin,
             'descriptif' => $editor,
@@ -244,15 +247,15 @@ class ProjetC extends BaseController
             'pdf_file' => $pdf
         );
 
-        $this->Projets->insert($projet);
+        $this->ESs->insert($ES);
     
-        return redirect()->to(base_url().'projets/M');
+        return redirect()->to(base_url().'ESs/M');
     }
-    public function createProjetM(){
+    public function createESM(){
         $data = array(
-            'pageName' => 'Ajoute Projet',
+            'pageName' => 'Ajoute ES',
         );
-        return view('Projets/ProjetCreate');
+        return view('ESs/ESCreate');
     }
 
 }
