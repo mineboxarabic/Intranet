@@ -499,7 +499,13 @@
                         <!--//! annuaire -->
 
 
+                        <!--//! GD -->
 
+                            <a class="nav-link" href="<?= base_url().'gdpage' ?>"
+                                id="topnav-dashboard" role="button">
+                                <i class="bx bx-world me-2"></i><span key="t-dashboards">Google drive</span>
+                            </a>
+                        <!--//! GD -->
 
 
                     </ul>

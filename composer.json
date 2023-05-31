@@ -30,8 +30,7 @@
         }
     },
     "scripts": {
-        "test": "phpunit",
-        "pre-autoload-dump": "Google\\Task\\Composer::cleanup"
+        "test": "phpunit"
     },
     "support": {
         "forum": "https://forum.codeigniter.com/",

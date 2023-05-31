@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Models\UserModel;
 use Google_Service;
+use Google_Service_Oauth2;
 
 class LoginC extends BaseController{
 
@@ -14,8 +15,17 @@ class LoginC extends BaseController{
         $this->googleClient->setRedirectUri('http://localhost:8080/login_redir');
         $this->googleClient->addScope('email');
         $this->googleClient->addScope('profile');
-        $this->googleClient->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
-        $this->googleClient->addScope(Google_Service_Drive::DRIVE);
+        
+        //Add google drive scope
+        $this->googleClient->addScope('https://www.googleapis.com/auth/drive');
+        $this->googleClient->addScope('https://www.googleapis.com/auth/drive.file');
+        $this->googleClient->addScope('https://www.googleapis.com/auth/drive.readonly');
+        $this->googleClient->addScope('https://www.googleapis.com/auth/drive.metadata.readonly');
+        $this->googleClient->addScope('https://www.googleapis.com/auth/drive.appdata');
+        $this->googleClient->addScope('https://www.googleapis.com/auth/drive.metadata');
+        $this->googleClient->addScope('https://www.googleapis.com/auth/drive.photos.readonly');
+        $this->googleClient->addScope('https://www.googleapis.com/auth/drive.scripts');
+        $this->googleClient->addScope('https://www.googleapis.com/auth/drive.activity');
 
 
 
@@ -41,14 +51,27 @@ class LoginC extends BaseController{
 
         if(!isset($token['error'])){
          $this->googleClient->setAccessToken($token['access_token']);
-         $drive = new \Google_Service_Drive($this->googleClient);
+        session()->set('Access_token', $token['access_token']);
 
-         session()->set('drive', $drive);
+
+         $drive = new \Google_Service_Drive($this->googleClient);
+            $files = $drive->files->listFiles(array())->getFiles();
+
+            
+
+
+
+
+
+            session()->set('files', $files);
+         
+
+         
          
            session()->set('Access_token', $token['access_token']);
             $googleService = new \Google_Service_Oauth2($this->googleClient);
             $data = $googleService->userinfo->get();
-            
+
 
 
             $userFirstName = $data['givenName'];
@@ -77,6 +100,7 @@ class LoginC extends BaseController{
             $userModel = new UserModel();
             $user = $userModel->where('email', $userEmail)->first();
             session()->set('current_user', $user);
+            echo 'test';
             $_SESSION['current_user'] = $user;
 
             if($user){
@@ -84,7 +108,8 @@ class LoginC extends BaseController{
                 $userType = $user['rang'] == 0 ? "student" : "personnel";
                 session()->set('userType', $userType);
                 session()->set('loggedUser', $user);
-                echo $userType . " " . $user['email'];
+                print_r($drive);
+                //session()->set('drive', $drive);
                 return redirect()->to(base_url() . 'dashboard');
             }
             else{
@@ -93,11 +118,17 @@ class LoginC extends BaseController{
         }
         else{
             session()->setFlashdata('error', $token['error']);
-            return redirect()->to('/login');
+            echo $token['error'];
+           // return redirect()->to('/login');
         }
         //TODO: add a login error page
 
 
+    }
+
+    public function getGoogleDrive(){
+        $drive = session()->get('files');
+        return $drive;
     }
 
     public function logout(){

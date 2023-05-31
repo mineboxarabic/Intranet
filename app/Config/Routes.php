@@ -129,16 +129,16 @@ $routes->setAutoRoute(true);
 //!
 
 //! Projets
-$routes->get('/ESs', 'ESC::index');
-$routes->get('/ESs/consulte/(:any)', 'ESC::consulteES/$1');
+    $routes->get('/ESs', 'ESC::index');
+    $routes->get('/ESs/consulte/(:any)', 'ESC::consulteES/$1');
 
 
-$routes->get('/ESs/M', 'ESC::afficheESsM');
-$routes->get('/ESs/M/consulte/(:any)', 'ESC::consulteESM/$1');
-$routes->get('/ESs/M/delete/(:any)', 'ESC::deleteESM/$1');
-$routes->post('/ESs/M/update/(:any)', 'ESC::updateESM/$1');
-$routes->get('/ESs/M/create', 'ESC::createESM');
-$routes->post('/ESs/M/add', 'ESC::addESM');
+    $routes->get('/ESs/M', 'ESC::afficheESsM');
+    $routes->get('/ESs/M/consulte/(:any)', 'ESC::consulteESM/$1');
+    $routes->get('/ESs/M/delete/(:any)', 'ESC::deleteESM/$1');
+    $routes->post('/ESs/M/update/(:any)', 'ESC::updateESM/$1');
+    $routes->get('/ESs/M/create', 'ESC::createESM');
+    $routes->post('/ESs/M/add', 'ESC::addESM');
 
 
 //!
@@ -162,9 +162,21 @@ $routes->post('/ESs/M/add', 'ESC::addESM');
 //!
 
 //!Profile
+
     $routes->get('/profile', 'UserC::profile');
     $routes->post('/profile/update', 'UserC::updateProfile');
     $routes->post('/profile/updatePassword', 'UserC::updatePassword');
+//!
+
+
+//!GoogleDrive
+
+    $routes->get('/gdpage', 'GoogleDriveC::index');
+
+    $routes->get('/showFolder/(:any)', 'GoogleDriveC::show_Folder/$1');
+
+//!
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
