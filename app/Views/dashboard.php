@@ -10,7 +10,7 @@
 
 <h1>
 <!-- show the userType from the session -->
-<?php echo session()->get('userType'); ?>
+	<?php echo session()->get('userType'); ?>
 
 </h1>
 

@@ -6,9 +6,66 @@
 <?= $this->section('content') ?>
 
 
+<style>
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+</style>
 <?php 
 
-foreach($filesFromDrive as $file):?>
+?>
+
+
+
+
+<div class="grid">
+<?php foreach($filesFromDrive as $file):?>
+
+<?php if($file->getMimeType() == "application/vnd.google-apps.folder"): ?>
+  
+  <?php $folderId = $file->getId() ?>
+  <div class="d-flex justify-content-center">
+    <a href='<?=base_url('/showFolder/'.$folderId)?>'>
+      <img width="80" src='<?=base_url('Images/Folder.png')?>' alt=''>
+      <!-- class="text-align:center" -->
+      <p class="text-center"></p><?=$file->getName()?></p>
+    </a>
+  </div>
+
+<?php else: ?>
+   
+  <?php 
+  //use the calss File in app/Classes/File.php
+
+      require_once '../app/Classes/File.php';
+
+    $file = new File($file);
+    $file->showFile();
+
+    ?>
+  <?php endif; ?>
+
+
+
+
+
+<?php endforeach; ?>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!--/*echo "File Name: " . $file->getName() . "<br>";
     echo "File ID: " . $file->getId() . "<br>";
@@ -35,33 +92,15 @@ foreach($filesFromDrive as $file):?>
     7) To get the date of the file, you can use the getModifiedByMeTime() method.
 
      */-->
-     <?php 
-     
-       print_r($file->getMimeType() );
-       echo "<br>";
-     ?>
 
-  <?php if($file->getMimeType() == "application/vnd.google-apps.folder"){
-    /*
-    <a>
-            <img src="<?base_url('Images/Folder.png')?>" alt="">
-            <p><?= $file->getName() ?></p>
 
-        </a>
-    */
-    $folderId = $file->getId();
-    echo "<a href='".base_url('/showFolder/'.$folderId)."'>";
-    echo "<img width=\"50\" src='".base_url('Images/Folder.png')."' alt=''>";
-    echo "<p>".$file->getName()."</p>";
-    echo "</a>";
-  }
-    
-    
-    
-    
-    ?>
 
-<?php endforeach; ?>
+
+
+
+     <script type="module">
+
+     </script>
   
 
 

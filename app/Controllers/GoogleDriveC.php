@@ -86,4 +86,18 @@ class GoogleDriveC extends BaseController
         return view('GoogleDrive/showFolder',$data);
     }
 
+    public function show_File($id){
+        
+        //$file = $this->drive->files->get($id);
+        $fileId = $id;
+
+        $file = $this->drive->files->get($fileId);
+        
+
+        $data = array(
+            'file' => $file
+        );
+        return view('GoogleDrive/showFile',$data);
+    }
+
 }
