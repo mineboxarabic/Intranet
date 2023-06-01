@@ -338,7 +338,7 @@
                     </div>-->
 
                     <ul class="dropdown-menu" aria-labelledby="page-header-user-dropdown">
-                        <li><a class="dropdown-item" href="profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="<?= base_url()?>profile">Profile</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="<?= base_url() . 'logout'?>">Logout</a></li>
                     </ul>

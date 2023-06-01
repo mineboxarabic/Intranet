@@ -100,4 +100,9 @@ class GoogleDriveC extends BaseController
         return view('GoogleDrive/showFile',$data);
     }
 
+    public function download_File($id){
+
+
+    }
+
 }

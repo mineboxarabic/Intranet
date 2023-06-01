@@ -1,7 +1,7 @@
 <?php 
 
 
-class File {
+class Folder {
     private $file;
     private $fileId;
     private $fileType;
@@ -22,14 +22,12 @@ class File {
 
     }
     public function showFile(){
-        //make link to download the file
         echo "<div class='d-flex justify-content-center'>";
-        echo "<a id='Icon' data_id ='".$this->fileId."' href=\"$this->fileLink\">";
-        echo "<img class=\"rounded mx-auto d-block\" width='80' src='".base_url('Images/File.png')."' alt=''>";
-        echo "<p id='fileName' class='text-center'>".$this->fileName."</p>";
+        echo "<a  id=\"Icon\" href='".base_url('/showFolder/'.$this->fileId)."'>";
+        echo "<img class=\"rounded mx-auto d-block\" width='80' src='".base_url('Images/Folder.png')."' alt=''>";
+        echo "<p class='text-center'>".$this->fileName."</p>";
         echo "</a>";
         echo "</div>";
-
     }
 }
 
@@ -48,12 +46,5 @@ class File {
     text-decoration: none;
     background-color: #e6e6e6;
     
-}
-
-#fileName{
-    width: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 </style>

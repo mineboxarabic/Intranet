@@ -29,7 +29,7 @@
 <div class="container">
     <div class="row">
 
-        <?= form_open_multipart(base_url() . '/profile/update') ?>
+        <?= form_open_multipart(base_url() . 'profile/update') ?>
         <img id="profile-pic" class="img-fluid" src="<?php 
             if(session()->get('current_user')['picture'] != null){
                 echo session()->get('current_user')['picture'];
